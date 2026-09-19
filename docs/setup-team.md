@@ -22,6 +22,9 @@ No. Tracker and domain layout are read from `docs/agents/issue-tracker.md` and `
 **I run this repo from both Claude Code and Codex. Where does the block go?**
 Into the file each harness reads: Codex reads only `AGENTS.md`, Claude Code reads `CLAUDE.md`. The skill writes the block into the current harness's file and, when the other file exists without importing it, into that one too. The lightest shared layout is a `CLAUDE.md` that is just `@AGENTS.md`, so one block serves both.
 
+**Why do advisors run on a smaller model?**
+A dispatch on the session's model costs several times one on `sonnet`, and an advisor's job (find the facts, ask the right question, take a position) is cheaper to get right than a builder's code. `Model for advisors and reviewers: inherit` in `docs/agents/team.md` restores the session's model if the advice comes back thinner than the project needs; the builders inherit it by default.
+
 **What does the profile change?**
 How often advisors are dispatched during a grill: `express` at round 1 and the final confirmation, `feature` also on rounds that open a new area. Gates and reviews are the same in both.
 

@@ -64,11 +64,17 @@ execution:
 
     - **Artifact language**: Portugues (pt-BR)
 
+    - **Dispatch after the first grill round**: `on request`
+
     - **Review loop limit**: 2
 
     - **Parallel builders**: 3
 
     - **Advisor rounds per artifact**: 2
+
+    - **Model for advisors and reviewers**: `sonnet`
+
+    - **Model for builders**: `inherit`
 
     ---
 

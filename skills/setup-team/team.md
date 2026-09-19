@@ -7,6 +7,9 @@ Settings the team hats (`team-grill`, `team-implement`) read. Edit freely; re-ru
 - **Profile**: `express` | `feature`
 - **Active advisors**: lgpd-analyst, security-analyst, qa-expert, ux-expert, dba, sre
 - **Artifact language**: <language>
+- **Dispatch after the first grill round**: `on request` | `automatic`
+- **Model for advisors and reviewers**: `sonnet` | `inherit`
+- **Model for builders**: `inherit` | `sonnet`
 - **Review loop limit**: 2 (reviewer to builder iterations before the Tech Lead escalates)
 - **Parallel builders**: 3
 - **Advisor rounds per artifact**: 2

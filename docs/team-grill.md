@@ -18,7 +18,7 @@ Type `/team-grill`, or, with Matt's skills installed, the agent loads it on its 
 
 ## Facts in, questions out
 
-Each round the hat drafts, then dispatches the advisors blind and in parallel. What comes back splits in two: **facts** (where personal data already lives, how auth works today, how the repo runs its tests) go into the design tree and are read to you as facts; **candidate questions** join the round tagged by origin (🔒 🛡️ ✅ 🎨 🗄️ 📡) with the advisor's recommended answer. An advisor's `OBJECT [judgment]` becomes a question for you; an `OBJECT [knowledge]` sends the advisors into one more round among themselves. Whatever stays in dissent is read back to you before you confirm the shared understanding, and lands in the spec under `## Team positions`.
+On round one the hat drafts, then dispatches the advisors blind and in parallel; on every later round it offers a pass with its cost and runs it only when you say so. What comes back splits in two: **facts** (where personal data already lives, how auth works today, how the repo runs its tests) go into the design tree and are read to you as facts; **candidate questions** join the round tagged by origin (🔒 🛡️ ✅ 🎨 🗄️ 📡) with the advisor's recommended answer. An advisor's `OBJECT [judgment]` becomes a question for you; an `OBJECT [knowledge]` is put to you as a dispute, with the option of one more round between the advisors at a stated cost. Whatever stays in dissent is read back to you before you confirm the shared understanding, and lands in the spec under `## Team positions`.
 
 ## Structure is the hat's own work
 

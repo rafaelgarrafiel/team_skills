@@ -1,6 +1,6 @@
 ---
 type: llm
-weight: 3
+weight: 1
 ---
 
 The response stops the automated loop and brings the decision to the human, because the ticket has already used its two review iterations.

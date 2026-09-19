@@ -7,17 +7,36 @@ description: The contribution contract every team support follows. Use when disp
 
 A hat (Product Owner in `team-grill`, Tech Lead in `team-implement`) dispatches supports. Every support writes exactly one file and returns a short summary. The file is the durable record the human can read where the decision is made; the summary is what the hat reads first. Agents never invoke each other: only the hat delegates.
 
+## Dispatch policy: once by default, then on request
+
+A dispatch is the expensive move: every support reads the repo in its own context and writes a file the hat then reads. Left automatic, a build that loops produces several opinions per specialist per ticket, and the cost of advice overtakes the cost of the work. So:
+
+- The roster is dispatched **once by default**: the first round of the grill.
+- **Every dispatch after that is the human's call.** The hat proposes it in one line with the cost stated (which roles, how many files) and waits: "Want the advisors on the draft spec? 5 dispatches. `yes` or `skip`." The human can also ask at any time ("review 04 with QA and DBA", "one more advisor pass").
+- `docs/agents/team.md` carries the setting: `Dispatch after the first grill round: on request` (the default) or `automatic` (every hook fires without asking, the pre-0.3 behaviour).
+
+A support that is not dispatched writes nothing; there is no file to check and nothing to read. Silence by policy costs zero.
+
+## Size
+
+A file the hat can read in one screen. **Facts**: at most eight bullets, each with its path. **Contribution**: at most six questions or findings, the ones that matter most, ranked; the rest is dropped, never appended. **Positions**: one line per position. A support that has more than that has not finished prioritising. Round 2 appends at most half of that.
+
 ## The brief
 
 The hat's prompt carries the task, never the persona (the harness loads the persona). Every brief has:
 
+- **the shared facts**, collected once by the hat so no support rediscovers them: stack and versions, the test command, CI if any, and the directories the design tree or the diff touches
+- **the reading scope**: this repository only; start from the paths named in the brief; read until you can answer, then stop; at most twenty files. Looking beyond the repository (sibling projects, the home directory) happens only when the human asked for it, and the brief says so
 - the artifact under review: a path, or the design tree so far for a grill round
 - the open frontier (grill), or the ticket and its spec section (build and review)
 - the paths of `CONTEXT.md` and the ADRs that touch the area, when they exist
 - the artifact language, from the `## Team` block
 - the mode: with or without Matt's skills
+- the size cap above, repeated in one line
 - the round number, and in round 2 only, the sibling supports' `## Positions`
 - the output path for the contribution file, and this line verbatim: "Call the Skill tool with `team-contribution` and follow it."
+
+Every dispatch also carries a **model**, from `docs/agents/team.md`: advisors and reviewers run on the model configured for them (`sonnet` by default), builders on theirs (`inherit` by default). The hat passes it as the dispatch's model; personas are never forked for it.
 
 Round 1 is **blind**: no brief carries a sibling's contribution. Who sees what is the invariant; whether the harness runs supports in parallel or in sequence is not.
 

@@ -7,7 +7,7 @@ You are the team's senior developer. You build exactly one ticket per dispatch, 
 
 ## Before building
 
-Read, in this order: the ticket; the spec section it points to; `CONTEXT.md` and the ADRs the brief names; the code around the seam the ticket agreed on. Speak the `CONTEXT.md` vocabulary in names and tests. When the ticket and the code disagree in a way the ticket did not foresee, stop and put the disagreement in the `Open` line of your summary rather than guessing; the Tech Lead will bring it to the human.
+The brief carries the shared facts (stack, test command, CI, the directories the ticket touches): trust them. Read this repository only. Then read, in this order: the ticket; the spec section it points to; `CONTEXT.md` and the ADRs the brief names; the code around the seam the ticket agreed on. Speak the `CONTEXT.md` vocabulary in names and tests. When the ticket and the code disagree in a way the ticket did not foresee, stop and put the disagreement in the `Open` line of your summary rather than guessing; the Tech Lead will bring it to the human.
 
 ## Building
 

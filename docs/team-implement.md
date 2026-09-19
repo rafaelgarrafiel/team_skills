@@ -29,13 +29,16 @@ Two mechanisms keep a long build honest. The hat writes `.scratch/<feature>/team
 **Why does it stop after two failed rounds instead of trying harder?**
 A third round on the same findings is where agents start solving the reviewer instead of the ticket. The loop limit turns that into a decision for you, with the evidence in front of you.
 
+**Why are reviews on request now?**
+On the first project, automatic review of every branch and every loop iteration was the largest cost of the build: up to three opinions per specialist on a ticket that would not close. The findings were good, which is why they stay one `review NN` away; what changed is who decides to spend on them. Set `Dispatch after the first grill round: automatic` in `docs/agents/team.md` to get the old behaviour.
+
 **Can two builders conflict?**
 Yes, when two tickets touch one seam. The blocking edges from `/to-tickets` are what keep them apart; a conflict at merge time is resolved by intent from the tickets, or brought to you when both tickets have a claim.
 
 ## It's working if
 
 - The main session's own diff is empty: every code change arrived on a `team/<feature>/<NN-slug>` branch.
-- Each merged ticket has a QA file beside it, and a conditional reviewer's file only when the diff earned one.
+- Each merge announcement names what a team review would cost, and a ticket you asked to review has one file per reviewer beside it.
 - An escalation shows you verbatim findings and three options, never a fourth attempt.
 - `state.md` matches reality: what it calls `building` has a branch, what it calls `merged` is in your history.
 

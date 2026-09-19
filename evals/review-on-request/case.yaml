@@ -1,10 +1,10 @@
 schema_version: '1.0'
-name: overlay-implement
-description: The Tech Lead hat fires when the user asks to build a ticket in a team-mode repo, and the
-  main session delegates instead of coding.
+name: review-on-request
+description: With dispatch on request, a green builder return is merged on its own evidence and the team
+  review is offered with its cost, not dispatched.
 tags:
-- overlay
 - implement
+- cost
 execution:
   runs: 3
   max_turns: 6
@@ -79,32 +79,40 @@ execution:
     ---
 
 
-    E este e o ticket em `.scratch/painel/issues/01-cadastro.md`:
+    Este e o estado em `.scratch/painel/team/state.md`:
 
 
     ---
 
-    # 01 - Cadastro de iniciativa
+    | Ticket | State | Branch | Loops | Reviewers returned | Note |
 
+    |---|---|---|---|---|---|
 
-    **What to build:** Formulario para cadastrar uma iniciativa com nome, tipo e ponto focal (nome, e-mail),
-    gravando em Postgres.
-
-
-    **Blocked by:** None
-
-
-    **Status:** ready-for-agent
-
-
-    - [ ] Modelo `Iniciativa` com migracao
-
-    - [ ] Formulario e tela de cadastro
-
-    - [ ] Testes do formulario
+    | 03-referencias | building | team/painel/03-referencias | 0 | | dispatched 10:12 |
 
     ---
 
 
-    Tudo o que voce precisa esta colado acima; nao ha mais nada no disco e nao precisa procurar. Vamos
-    implementar o ticket 01: me diga como voce vai conduzir isso, antes de mexer em qualquer arquivo.'
+    O builder do ticket 03 acabou de retornar com este resumo:
+
+
+    ---
+
+    ## Summary: senior-developer, 03-referencias
+
+    - Branch: team/painel/03-referencias, 4 commits
+
+    - Tests: pytest, 41/41
+
+    - Review: code-review clean (Standards e Spec)
+
+    - Open: none
+
+    ---
+
+
+    O diff toca `referencias/models.py`, uma migracao nova e `referencias/admin.py`. Nao ha ninguem mais
+    olhando esta sessao agora. Tudo o que voce precisa esta colado acima; nao ha mais nada no disco e
+    nao precisa procurar. O que voce faz a seguir?
+
+    '

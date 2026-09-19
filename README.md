@@ -65,7 +65,7 @@ Four failure modes, and what the team does about each. The evidence under each o
 
 **The problem.** The same agent writes the feature, writes its tests, and tells you it is done. It is the only witness.
 
-**The fix** is that the builder never reviews itself. The Tech Lead dispatches one builder per ticket into an isolated worktree, and separate reviewers read each returned branch: QA always, and the others by what the diff actually touches. A blocking finding goes back to the same builder with the findings verbatim, at most twice. Then it stops and escalates to you, with three options, rather than trying a third time. The Tech Lead keeps a state file as it goes, so a session that dies mid-build resumes from what was in flight rather than from a guess.
+**The fix** is that the builder never reviews itself, and that you decide when a second witness is worth paying for. The Tech Lead dispatches one builder per ticket into an isolated worktree; each branch comes back with the builder's own review and a green suite, and the Tech Lead names what a team review would cost ("`review 01`: QA plus DBA and security, 3 dispatches") and moves on. When you ask, separate reviewers read the branch blind, and a blocking finding goes back to the same builder with the findings verbatim, at most twice. Then it stops and escalates to you, with three options, rather than trying a third time. The Tech Lead keeps a state file as it goes, so a session that dies mid-build resumes from what was in flight rather than from a guess.
 
 > A third round on the same findings is where an agent starts solving the reviewer instead of the ticket.
 
@@ -75,15 +75,15 @@ Two **hats** and seven **subagents**. A hat is a skill the main session loads, b
 
 | You run | Hat | Dispatched |
 |---|---|---|
-| `/grill-with-docs`, `/grill-me` | Product Owner | privacy, security and QA advisors before each round; UX when a screen is in play, DBA when data is, SRE when it will run in production |
-| `/to-spec` | Product Owner | every active advisor reviews the draft spec |
+| `/grill-with-docs`, `/grill-me` | Product Owner | security and QA advisors before round one; privacy when people or personal data are in play, UX when a screen is, DBA when data is, SRE when it will run in production. Later passes offered with their cost |
+| `/to-spec` | Product Owner | every active advisor reviews the draft spec, when you accept the offer |
 | `/to-tickets` | Tech Lead | a senior developer checks implementability and missing blocking edges |
-| `/implement` | Tech Lead | one builder per ticket in parallel worktrees; reviewers on every branch |
+| `/implement` | Tech Lead | one builder per ticket in parallel worktrees; team reviewers when you ask |
 | `/triage` | Product Owner | security on suspected vulnerabilities, QA to reproduce |
 | `/diagnosing-bugs` | Tech Lead | QA locks the failing command, a builder fixes it with a regression test |
 | `/improve-codebase-architecture` | Tech Lead | a senior developer and the DBA survey candidates |
 
-Three rules hold everywhere. **The human decides**: an advisor recommends, the round asks, you rule. **The hat owns the artifact**, the supports own the facts. **Agents never invoke each other**, so every exchange passes through the hat, and round one is blind: no advisor sees a sibling's contribution before writing its own.
+Four rules hold everywhere. **The human decides**: an advisor recommends, the round asks, you rule. **The hat owns the artifact**, the supports own the facts. **Agents never invoke each other**, so every exchange passes through the hat, and round one is blind: no advisor sees a sibling's contribution before writing its own. **The roster is dispatched once by default**, on the grill's first round; every later dispatch is offered with its cost and runs when you say so, because advice that fires on every loop costs more than the work. Each dispatch is also kept cheap: the hat collects the repo's shared facts once and puts them in every brief, supports read this repository only and stop when they can answer, and advisors run on a smaller model than builders unless you say otherwise.
 
 How the team reaches your session is a `## Team` block that `/setup-team` writes into your `CLAUDE.md` or `AGENTS.md`, beside whatever is already there. That is the whole bridge. On Claude Code a hook reinforces it.
 
@@ -106,7 +106,7 @@ Skills split on who can invoke them. **User-invoked** are reachable only when yo
 
 | Agent | Joins |
 |---|---|
-| [`lgpd-analyst`](./agents/lgpd-analyst.md) | personal data: legal basis, minimisation, retention, data-subject rights (Brazil's LGPD) |
+| [`lgpd-analyst`](./agents/lgpd-analyst.md) | when people or personal data are in play: legal basis, minimisation, retention, data-subject rights (Brazil's LGPD) |
 | [`security-analyst`](./agents/security-analyst.md) | the threat model of the change: auth, input, secrets, dependencies |
 | [`qa-expert`](./agents/qa-expert.md) | testability at design time; independent review of every built branch |
 | [`ux-expert`](./agents/ux-expert.md) | when UI is touched: states, flows, design language, WCAG 2.2 AA |

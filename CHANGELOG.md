@@ -1,6 +1,14 @@
 # Changelog
 
-## 0.2.0 (unreleased)
+## 0.3.0
+
+- **Dispatch once, then on request.** The roster fires once by default, on the grill's first round; every later pass (grill rounds, the spec review, the ticket check, branch reviews, triage and bug helpers) is offered with its cost and runs only when the human says so. A branch merges on the builder's own review and suite; team reviews are one `review NN` away. `docs/agents/team.md` gains `Dispatch after the first grill round: on request | automatic`; `automatic` is the 0.2 behaviour. ADR 0006 has the numbers from the first project.
+- Contribution files are capped: eight facts, six items, one line per position.
+- **Cheaper dispatches** (ADR 0007): the hat collects the repo's shared facts once and puts them in every brief; supports read this repository only, from the named paths, and stop when they can answer (twenty files at most); advisors and reviewers run on the model set in `docs/agents/team.md` (`sonnet` by default), builders on theirs (`inherit`); `lgpd-analyst` joins by condition like UX, DBA and SRE.
+- Codex: the `## Team` block goes into the file the harness reads (`AGENTS.md` on Codex), the agent TOMLs ship inside the `setup-team` skill, and their install into `.codex/agents/` is a command the skill hands to the human.
+- Behavioural eval suite under `evals/`, run with `scripts/eval.sh`.
+
+## 0.2.0
 
 - `sre` advisor: observability, deploy and rollback, incidents, runtime capacity, CI/CD, and every scheduled behaviour the design tree assumes without naming its trigger. Joins by condition, like `ux-expert` and `dba`.
 - The Product Owner hat reaches for `codebase-design` when the design tree turns structural; system decomposition is the hat's own work, never a dispatch.

@@ -25,13 +25,17 @@ Summarise mode, harness, and what Matt's setup already settled. Then one section
 
 **A. Tracker and domain docs.** Skip when Matt's docs exist. Otherwise ask where tickets live, with the same choices Matt's setup offers (GitHub with `gh`, GitLab with `glab`, local markdown under `.scratch/<feature>/`, other described in a paragraph), and write `docs/agents/issue-tracker.md` in the same shape so both plugins read one file. Recommended: what the git remote points at; local when there is none.
 
-**B. Profile.** `express` (recommended for most repos): advisors join round 1 and the final confirmation of a grill; reviews are QA plus the conditional reviewers. `feature`: advisors also join every round that opened a new area. The profile changes how often supports are dispatched, never which gates exist.
+**B. Profile.** Only matters under `automatic` dispatch (section E). `express` (recommended): advisors fire on round 1 and the final confirmation of a grill. `feature`: also on every round that opened a new area. Under `on request` the profile is recorded and ignored, because every pass after round 1 is the user's call.
 
-**C. Advisors.** All six active by default: `lgpd-analyst`, `security-analyst`, `qa-expert`, `ux-expert`, `dba`, `sre`. `ux-expert`, `dba` and `sre` are conditional by design (UI, persistence, runtime); an advisor switched off here is never dispatched. A repo may add its own advisor: a persona in the harness's agents folder that follows `team-contribution`; list it here to activate it.
+**C. Advisors.** All six active by default: `lgpd-analyst`, `security-analyst`, `qa-expert`, `ux-expert`, `dba`, `sre`. `lgpd-analyst`, `ux-expert`, `dba` and `sre` are conditional by design (personal data, UI, persistence, runtime); an advisor switched off here is never dispatched. A repo may add its own advisor: a persona in the harness's agents folder that follows `team-contribution`; list it here to activate it.
 
 **D. Artifact language.** The language of contribution files, specs, tickets and review verdicts. Recommended: the language the user wrote to you in.
 
-**E. Limits.** Review loop before escalation: 2. Builders in parallel: 3. Advisor rounds per artifact: 2. Accept or change.
+**E. Dispatch after the first grill round.** `on request` (recommended): the roster is dispatched once, on the grill's first round; every later pass (more grill rounds, the spec review, the ticket check, branch reviews) is offered with its cost and runs only when the user says so. `automatic`: every hook fires without asking. Say why the default is what it is: a build that loops can produce several opinions per specialist per ticket, and the cost of advice overtakes the cost of the work.
+
+**F. Models.** Advisors and reviewers: `sonnet` (recommended; a dispatch on it costs a fraction of one on the session's model, and an advisor's question is cheaper to get right than a builder's code). Builders: `inherit` (recommended; the session's model does the hard work). The hats pass these at dispatch; nothing is forked. Say that `inherit` for advisors is one line away if their advice turns out thinner than the project needs.
+
+**G. Limits.** Review loop before escalation: 2. Builders in parallel: 3. Advisor rounds per artifact: 2. Accept or change.
 
 ## 3. Confirm and write
 

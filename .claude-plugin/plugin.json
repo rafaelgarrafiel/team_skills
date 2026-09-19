@@ -1,0 +1,27 @@
+{
+  "name": "team-skills",
+  "version": "0.1.0",
+  "description": "A team for your coding agent: Product Owner and Tech Lead hats on the main session, LGPD, security, QA, UX and DBA advisors and senior-developer builders as subagents. Overlays mattpocock/skills when installed; runs standalone when not.",
+  "author": {
+    "name": "Rafael Garrafiel"
+  },
+  "repository": "https://github.com/rafaelgarrafiel/team_skills",
+  "license": "MIT",
+  "keywords": [
+    "team",
+    "orchestration",
+    "subagents",
+    "grilling",
+    "lgpd",
+    "security",
+    "code-review"
+  ],
+  "skills": [
+    "./skills/setup-team",
+    "./skills/ask-team",
+    "./skills/team-contribution",
+    "./skills/team-grill",
+    "./skills/team-implement"
+  ],
+  "hooks": "./hooks/hooks.json"
+}

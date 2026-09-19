@@ -1,0 +1,5 @@
+interface:
+  display_name: "Ask Team"
+  short_description: "Which hat or flow fits"
+policy:
+  allow_implicit_invocation: false

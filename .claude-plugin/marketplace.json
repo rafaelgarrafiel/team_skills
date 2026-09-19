@@ -1,0 +1,16 @@
+{
+  "name": "team-skills",
+  "owner": {
+    "name": "Rafael Garrafiel"
+  },
+  "description": "A team of hats and subagents for Claude Code, layered over mattpocock/skills.",
+  "plugins": [
+    {
+      "name": "team-skills",
+      "source": "./",
+      "description": "Product Owner and Tech Lead hats, advisor and builder subagents, overlaying mattpocock/skills.",
+      "category": "engineering",
+      "keywords": ["team", "orchestration", "subagents", "grilling", "lgpd", "security"]
+    }
+  ]
+}

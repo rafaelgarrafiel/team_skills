@@ -1,0 +1,5 @@
+interface:
+  display_name: "Setup Team"
+  short_description: "Configure the team for this repo"
+policy:
+  allow_implicit_invocation: false

@@ -1,0 +1,3 @@
+interface:
+  display_name: "Team Contribution"
+  short_description: "Contract for advisors, reviewers and builders"

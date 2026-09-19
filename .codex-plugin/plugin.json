@@ -1,0 +1,11 @@
+{
+  "name": "team-skills",
+  "version": "0.1.0",
+  "description": "A team for your coding agent: Product Owner and Tech Lead hats on the main session, LGPD, security, QA, UX and DBA advisors and senior-developer builders as subagents. Overlays mattpocock/skills when installed; runs standalone when not. Codex agents are installed by /setup-team from dist/codex/agents (the Codex manifest has no agents field).",
+  "author": {
+    "name": "Rafael Garrafiel"
+  },
+  "repository": "https://github.com/rafaelgarrafiel/team_skills",
+  "license": "MIT",
+  "skills": "./skills"
+}

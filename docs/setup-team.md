@@ -1,0 +1,32 @@
+## What it does
+
+`setup-team` writes the two files the hats read: `docs/agents/team.md` (mode, profile, active advisors, artifact language, limits) and a `## Team` block in `CLAUDE.md` or `AGENTS.md` that tells the main session which hat to load for which of Matt's skills. It reuses Matt's tracker and domain settings when they exist rather than asking twice.
+
+## When to reach for it
+
+You invoke this by typing `/setup-team`, once per repo, and the agent won't reach for it on its own. Re-run it only to change a setting or after installing or removing Matt's skills (the mode changes).
+
+## Two files, one block
+
+| File | Who reads it |
+|---|---|
+| `docs/agents/team.md` | the hats, for settings |
+| `## Team` block in `CLAUDE.md` / `AGENTS.md` | the main session, every turn: it is the bridge from Matt's skills to the hats |
+| `.codex/agents/*.toml` (Codex only) | Codex, to discover the subagents; the Codex plugin manifest cannot ship them |
+
+## Common questions
+
+**I already ran `/setup-matt-pocock-skills`. Will this ask the same things again?**
+No. Tracker and domain layout are read from `docs/agents/issue-tracker.md` and `docs/agents/domain.md`. Only the team's own settings are asked.
+
+**What does the profile change?**
+How often advisors are dispatched during a grill: `express` at round 1 and the final confirmation, `feature` also on rounds that open a new area. Gates and reviews are the same in both.
+
+## It's working if
+
+- `CLAUDE.md` (or `AGENTS.md`) carries a `## Team` block of under ten lines beside Matt's `## Agent skills`.
+- Running `/grill-with-docs` afterwards makes the agent load `team-grill` without being told.
+
+## Where it fits
+
+A run-once setup, the precondition of [team-grill](./team-grill.md) and [team-implement](./team-implement.md). The map is [ask-team](../skills/ask-team/SKILL.md).

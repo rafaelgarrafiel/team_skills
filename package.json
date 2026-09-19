@@ -1,0 +1,11 @@
+{
+  "name": "team-skills",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A team for your coding agent, layered over mattpocock/skills.",
+  "scripts": {
+    "build": "scripts/build.sh",
+    "validate": "scripts/validate.sh"
+  },
+  "license": "MIT"
+}

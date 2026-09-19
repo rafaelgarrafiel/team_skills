@@ -1,0 +1,32 @@
+schema_version: '1.0'
+name: no-team-no-hijack
+description: Without a Team block in the repo, the hats stay out of the way instead of claiming a roster
+  that was never configured.
+tags:
+- overlay
+- negative
+execution:
+  runs: 3
+  max_turns: 4
+  allowed_tools:
+  - Skill
+  prompt: 'Este e o `AGENTS.md` do meu repositorio:
+
+
+    ---
+
+    # utilitarios
+
+
+    ## Convencoes
+
+
+    - Python 3.12, `pytest` para testes.
+
+    - Um modulo por utilitario em `src/`.
+
+    ---
+
+
+    Preciso de uma funcao que receba uma data e devolva o numero da semana epidemiologica. Como voce conduz
+    isso?'

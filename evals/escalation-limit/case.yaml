@@ -1,0 +1,94 @@
+schema_version: '1.0'
+name: escalation-limit
+description: The Tech Lead escalates to the human at the review loop limit instead of sending the builder
+  back a third time.
+tags:
+- implement
+- limits
+execution:
+  runs: 3
+  max_turns: 6
+  allowed_tools:
+  - Skill
+  prompt: 'Este e o `AGENTS.md` do meu repositorio:
+
+
+    ---
+
+    # painel
+
+
+    ## Agent skills
+
+
+    ### Issue tracker
+
+
+    Issues sao arquivos markdown locais em `.scratch/<feature>/`.
+
+
+    ## Team
+
+
+    Team mode is on: mode `standalone`, profile `express`, artifacts in Portugues (pt-BR). Settings in
+    `docs/agents/team.md`.
+
+
+    The main session wears a hat and delegates to the roster; it never does the roster''s work itself.
+
+
+    - When the user runs `/grill-with-docs`, `/grill-me`, `/to-spec` or `/triage`: call the Skill tool
+    with `team-grill` before the first round, and follow it.
+
+    - When the user runs `/implement`, `/to-tickets`, `/diagnosing-bugs` or `/improve-codebase-architecture`:
+    call the Skill tool with `team-implement` before doing anything else, and follow it.
+
+    ---
+
+
+    E este e o `docs/agents/team.md`:
+
+
+    ---
+
+    # Team
+
+
+    - **Mode**: `standalone`
+
+    - **Harness**: `claude`
+
+    - **Profile**: `express`
+
+    - **Active advisors**: lgpd-analyst, security-analyst, qa-expert, ux-expert, dba, sre
+
+    - **Artifact language**: Portugues (pt-BR)
+
+    - **Review loop limit**: 2
+
+    - **Parallel builders**: 3
+
+    - **Advisor rounds per artifact**: 2
+
+    ---
+
+
+    Este e o estado em `.scratch/painel/team/state.md`:
+
+
+    ---
+
+    | Ticket | State | Branch | Loops | Reviewers returned | Note |
+
+    |---|---|---|---|---|---|
+
+    | 04-lembretes | in review | team/painel/04-lembretes | 2 | qa | terceiro retorno do builder |
+
+    ---
+
+
+    O QA acabou de devolver a branch do ticket 04 pela terceira vez, com `Blocking: yes`: o criterio de
+    aceite "nao envia lembrete duplicado quando o job roda duas vezes" continua sem teste que prove.
+
+
+    O que voce faz agora?'

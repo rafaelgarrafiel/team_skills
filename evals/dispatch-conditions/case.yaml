@@ -1,0 +1,87 @@
+schema_version: '1.0'
+name: dispatch-conditions
+description: The Product Owner hat dispatches the three conditional advisors when the design tree touches
+  a screen, persistence and production at once.
+tags:
+- grill
+- conditions
+execution:
+  runs: 3
+  max_turns: 6
+  allowed_tools:
+  - Skill
+  prompt: 'Este e o `AGENTS.md` do meu repositorio:
+
+
+    ---
+
+    # painel
+
+
+    ## Agent skills
+
+
+    ### Issue tracker
+
+
+    Issues sao arquivos markdown locais em `.scratch/<feature>/`.
+
+
+    ## Team
+
+
+    Team mode is on: mode `standalone`, profile `express`, artifacts in Portugues (pt-BR). Settings in
+    `docs/agents/team.md`.
+
+
+    The main session wears a hat and delegates to the roster; it never does the roster''s work itself.
+
+
+    - When the user runs `/grill-with-docs`, `/grill-me`, `/to-spec` or `/triage`: call the Skill tool
+    with `team-grill` before the first round, and follow it.
+
+    - When the user runs `/implement`, `/to-tickets`, `/diagnosing-bugs` or `/improve-codebase-architecture`:
+    call the Skill tool with `team-implement` before doing anything else, and follow it.
+
+    ---
+
+
+    E este e o `docs/agents/team.md`:
+
+
+    ---
+
+    # Team
+
+
+    - **Mode**: `standalone`
+
+    - **Harness**: `claude`
+
+    - **Profile**: `express`
+
+    - **Active advisors**: lgpd-analyst, security-analyst, qa-expert, ux-expert, dba, sre
+
+    - **Artifact language**: Portugues (pt-BR)
+
+    - **Review loop limit**: 2
+
+    - **Parallel builders**: 3
+
+    - **Advisor rounds per artifact**: 2
+
+    ---
+
+
+    A arvore de design ate aqui, ja decidida comigo:
+
+
+    - Uma tela web onde o coordenador cadastra e edita a propria iniciativa.
+
+    - Os dados ficam em PostgreSQL, com historico de alteracao.
+
+    - O sistema roda em Kubernetes e manda um e-mail de lembrete todo mes para quem nao atualizou.
+
+
+    Vou rodar a proxima rodada da entrevista. Nao acione ninguem ainda e nao me mostre perguntas: quero
+    primeiro so o plano. Quais especialistas entram nesta rodada, e por que cada um?'

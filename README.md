@@ -29,7 +29,7 @@ claude plugins install team-skills@team-skills
 npx skills@latest add rafaelgarrafiel/team_skills
 ```
 
-The skills arrive through the installer; `/setup-team` installs the subagents into `.codex/agents/`, because the Codex plugin manifest has no field for them.
+The skills arrive through the installer. The subagents travel inside the `setup-team` skill; `$setup-team` gives you the one-line copy into `.codex/agents/` (the Codex manifest has no field for agents, and the Codex sandbox cannot write there itself).
 
 </details>
 
@@ -131,7 +131,7 @@ Installing both is the intended setup. Nothing is duplicated: this package ships
 | Harness | Skills | Agents | Bridge | Status |
 |---|---|---|---|---|
 | Claude Code | plugin manifest | plugin manifest | `## Team` block plus a `PreToolUse` hook | in use |
-| Codex | `npx skills add` or the Codex plugin | installed by `/setup-team` | `## Team` block in `AGENTS.md` | built, parity of parallel builders unverified |
+| Codex | `npx skills add` or the Codex plugin | copied by you, command from `$setup-team` | `## Team` block in `AGENTS.md` (Codex does not read `CLAUDE.md`) | setup verified on a real machine; parallel builders unverified |
 
 ## Development
 
@@ -139,6 +139,12 @@ Installing both is the intended setup. Nothing is duplicated: this package ships
 scripts/validate.sh
 ```
 
-Checks the manifests, version sync, skill layout and invocation parity, that every frontmatter parses, that the generated Codex agents are fresh, and the prose rules. `scripts/build.sh` regenerates the Codex agent files from `agents/*.md`, the single source of truth for every persona.
+Checks the manifests, version sync, skill layout and invocation parity, that every frontmatter parses, that the generated Codex agents are fresh, and the prose rules. `scripts/build.sh` regenerates the Codex agent files (`skills/setup-team/codex-agents/`) from `agents/*.md`, the single source of truth for every persona.
+
+```bash
+scripts/eval.sh
+```
+
+Runs the behavioural suite in [evals/](./evals/README.md) with `claude plugin eval`: does the hat fire, does it delegate, are the conditional advisors chosen, does the Tech Lead escalate at the loop limit, does the plugin stay out of a repo that never configured it. Real sessions, real cost, so it is a release step rather than a CI step.
 
 Decisions live in [.agents/adr/](./.agents/adr/); the phased plan and its pilot criteria in [PLAN.md](./PLAN.md).

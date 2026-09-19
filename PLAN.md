@@ -9,7 +9,7 @@ Everything buildable without a real repo is built and passes `scripts/validate.s
 | 0 scaffold | manifests validate, `build.sh` round-trips, hook exercised with sample input | `claude plugins install` from a marketplace add of this repo |
 | 1 grill | `setup-team`, `team-contribution`, `team-grill`, `ask-team`, five advisor personas, docs | the pilot below |
 | 2 build | `team-implement`, `senior-developer`, the Claude hook | the pilot below, and the ADR 0003 risk observed |
-| 3 Codex | Codex manifest, TOML generation, `setup-team` Codex branch, `openai.yaml` on every skill | everything: no `codex` CLI on the build machine |
+| 3 Codex | Codex manifest, TOML generation, `setup-team` Codex branch, `openai.yaml` on every skill; first real run found and fixed the block file, the TOML shipping path and the `.codex/` write refusal | `$team-grill` overlay through `AGENTS.md`, parallel builders |
 | 4 v1.0 | README, docs pages, CHANGELOG, versions in sync | skills.sh listing, official marketplace, a second real repo |
 
 Simplification adopted during the build: personas are already in Claude's format, so only the Codex TOML is generated (`dist/codex/agents/`), and `.claude-plugin/plugin.json` lists the persona files explicitly, which `claude plugin validate --strict` requires. The contribution contract moved from `.agents/` into the `team-contribution` skill, its single source of truth.

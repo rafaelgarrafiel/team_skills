@@ -12,12 +12,15 @@ You invoke this by typing `/setup-team`, once per repo, and the agent won't reac
 |---|---|
 | `docs/agents/team.md` | the hats, for settings |
 | `## Team` block in `CLAUDE.md` / `AGENTS.md` | the main session, every turn: it is the bridge from Matt's skills to the hats |
-| `.codex/agents/*.toml` (Codex only) | Codex, to discover the subagents; the Codex plugin manifest cannot ship them |
+| `.codex/agents/*.toml` (Codex only) | Codex, to discover the subagents. You copy them with the command the skill gives you: the Codex manifest cannot ship them and the Codex sandbox cannot write under `.codex/` |
 
 ## Common questions
 
 **I already ran `/setup-matt-pocock-skills`. Will this ask the same things again?**
 No. Tracker and domain layout are read from `docs/agents/issue-tracker.md` and `docs/agents/domain.md`. Only the team's own settings are asked.
+
+**I run this repo from both Claude Code and Codex. Where does the block go?**
+Into the file each harness reads: Codex reads only `AGENTS.md`, Claude Code reads `CLAUDE.md`. The skill writes the block into the current harness's file and, when the other file exists without importing it, into that one too. The lightest shared layout is a `CLAUDE.md` that is just `@AGENTS.md`, so one block serves both.
 
 **What does the profile change?**
 How often advisors are dispatched during a grill: `express` at round 1 and the final confirmation, `feature` also on rounds that open a new area. Gates and reviews are the same in both.

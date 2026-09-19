@@ -43,7 +43,7 @@ A non-zero exit names what is missing or malformed: re-dispatch exactly those ad
 ## 4. Merge what came back into the round
 
 - **Facts** go into the tree and are stated to the human in a line each, as facts, not questions. A draft question a fact answers is dropped.
-- **Candidate questions** join the round, numbered in sequence with yours, each tagged by origin (🔒 LGPD, 🛡️ security, ✅ QA, 🎨 UX, 🗄️ DBA) and carrying the advisor's recommended answer. Two advisors asking the same thing is one question with two tags. A question the human already answered in an earlier round is dropped.
+- **Candidate questions** join the round, numbered in sequence with yours, each tagged by origin (🔒 LGPD, 🛡️ security, ✅ QA, 🎨 UX, 🗄️ DBA, 📡 SRE) and carrying the advisor's recommended answer. Two advisors asking the same thing is one question with two tags. A question the human already answered in an earlier round is dropped.
 - **Positions**: `OBJECT [judgment]` becomes a question in this round with the advisor's recommendation. `OBJECT [knowledge]` triggers round 2 for the objecting advisors (with the revised tree and the siblings' positions), and the questions downstream of it wait; the rest of the round is shown now.
 
 Then show the round and wait for the answers.

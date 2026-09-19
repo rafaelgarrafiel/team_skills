@@ -5,10 +5,11 @@ A plugin for Claude Code and Codex that adds a **team** (Product Owner and Tech 
 ## Layout
 
 - `skills/<name>/SKILL.md`: one flat folder per skill, no buckets (Codex's manifest takes a single skills path). Every skill folder also carries `agents/openai.yaml`.
-- `agents/<role>.md`: the canonical persona files, auto-discovered by Claude Code (the manifest carries no `agents` field on purpose, see ADR 0002). `dist/codex/agents/*.toml` is **generated** from them by `scripts/build.sh` and committed; never edit generated output.
+- `agents/<role>.md`: the canonical persona files, auto-discovered by Claude Code (the manifest carries no `agents` field on purpose, see ADR 0002). `skills/setup-team/codex-agents/*.toml` is **generated** from them by `scripts/build.sh` and committed; it lives inside the skill so every installer ships it. Never edit generated output.
 - `.claude-plugin/`, `.codex-plugin/`: the two manifests. Run `claude plugin validate . --strict` after touching either.
 - `.agents/adr/`: decisions. `.agents/roster.md`: who leads and supports where. The contribution contract is the `team-contribution` skill.
 - `hooks/`: the Claude Code `PreToolUse` overlay hook (ADR 0003). `docs/<skill>.md`: one human-facing page per skill, in the shape of Matt's docs pages (What it does, When to reach for it, Common questions, It's working if, Where it fits).
+- `evals/`: behavioural eval cases for `claude plugin eval`, run with `scripts/eval.sh` (costs money, so not in CI; run before a release and after changing a hat, a persona or the Team block). `evals/README.md` lists what each case catches.
 - `PLAN.md`: the phased implementation plan, kept current until v1.0 ships. `scripts/validate.sh` before any commit.
 
 ## Conventions

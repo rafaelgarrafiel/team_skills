@@ -55,12 +55,12 @@ print("  every frontmatter parses with name and description")
 PY2
 
 echo "generated output"
-tmp=$(mktemp -d); cp -R dist "$tmp/dist"
-scripts/build.sh >/dev/null && diff -r "$tmp/dist" dist >/dev/null && say "dist/ is fresh" || bad "dist/ is stale: run scripts/build.sh and commit"
+tmp=$(mktemp -d); cp -R skills/setup-team/codex-agents "$tmp/gen"
+scripts/build.sh >/dev/null && diff -r "$tmp/gen" skills/setup-team/codex-agents >/dev/null && say "codex-agents/ is fresh" || bad "skills/setup-team/codex-agents/ is stale: run scripts/build.sh and commit"
 rm -rf "$tmp"
 
 echo "prose"
 emdash=$(printf '\342\200\224')
-if grep -rn --include='*.md' --include='*.yaml' --include='*.json' --include='*.sh' --include='*.toml' -e "$emdash" . --exclude-dir=.git --exclude-dir=node_modules >/tmp/team-skills-emdash.log; then cat /tmp/team-skills-emdash.log; bad "em-dashes found"; else say "no em-dashes"; fi
+if grep -rn --include='*.md' --include='*.yaml' --include='*.json' --include='*.sh' --include='*.toml' -e "$emdash" . --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=results >/tmp/team-skills-emdash.log; then cat /tmp/team-skills-emdash.log; bad "em-dashes found"; else say "no em-dashes"; fi
 
 [ $fail -eq 0 ] && echo "ok" || { echo "failed"; exit 1; }

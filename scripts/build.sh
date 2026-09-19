@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 # Generates the Codex agent TOMLs from the canonical personas in agents/*.md.
-# Claude Code ships agents/ as is (plugin.json "agents": "./agents"), so only
-# the Codex surface is generated. Output: dist/codex/agents/<role>.toml, which
-# /setup-team copies into a target repo's .codex/agents/.
+# Claude Code auto-discovers agents/, so only the Codex surface is generated.
+# Output lives INSIDE the setup-team skill folder (skills/setup-team/codex-agents/)
+# so it travels with the skill under every installer: `npx skills add` copies
+# skill folders only, and a top-level dist/ never reached a Codex machine.
+# /setup-team hands the human the copy command into the repo's .codex/agents/.
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-out=dist/codex/agents
+out=skills/setup-team/codex-agents
 mkdir -p "$out"
 rm -f "$out"/*.toml
 

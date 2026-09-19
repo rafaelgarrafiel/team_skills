@@ -37,6 +37,7 @@ A subagent cannot hold a conversation with you; it runs and returns. So the advi
 - A round contains questions you did not expect, tagged with an advisor's mark, each with a recommendation.
 - Facts arrive as statements ("the repo already stores CPF in `users.document`"), not as questions to you.
 - `.scratch/<feature>/team/grill/` fills with one file per advisor, and the final confirmation reads any maintained objection back to you.
+- The hat runs the contribution check before each round and re-dispatches what is missing, instead of showing a round built on a half-finished dispatch.
 
 ## Where it fits
 

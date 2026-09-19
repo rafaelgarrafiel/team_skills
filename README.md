@@ -59,13 +59,13 @@ Four failure modes, and what the team does about each. The evidence under each o
 
 **The problem.** An agent that disagrees with you, and then complies, leaves no trace of the disagreement. Six weeks later the decision looks unanimous and nobody remembers the cost.
 
-**The fix** is that every specialist writes its own file and ends with positions: `AGREE`, or `OBJECT` tagged as a **judgment** call (both positions legitimate, so it goes to you as a question) or a **knowledge** dispute (an expert can settle it, so the objecting specialists get one more round with each other's positions). Two rounds, maximum. What survives is quoted word for word in the spec, the ticket or the review verdict. The files stay in the repo beside the decision.
+**The fix** is that every specialist writes its own file and ends with positions: `AGREE`, or `OBJECT` tagged as a **judgment** call (both positions legitimate, so it goes to you as a question) or a **knowledge** dispute (an expert can settle it, so the objecting specialists get one more round with each other's positions). Two rounds, maximum. What survives is quoted word for word in the spec, the ticket or the review verdict. The files stay in the repo beside the decision, and before a round closes a check confirms each one landed: a dispatch that produced no file produced no advice, and a return summary cannot tell you which happened.
 
 ### #4: The agent grades its own homework
 
 **The problem.** The same agent writes the feature, writes its tests, and tells you it is done. It is the only witness.
 
-**The fix** is that the builder never reviews itself. The Tech Lead dispatches one builder per ticket into an isolated worktree, and separate reviewers read each returned branch: QA always, and the others by what the diff actually touches. A blocking finding goes back to the same builder with the findings verbatim, at most twice. Then it stops and escalates to you, with three options, rather than trying a third time.
+**The fix** is that the builder never reviews itself. The Tech Lead dispatches one builder per ticket into an isolated worktree, and separate reviewers read each returned branch: QA always, and the others by what the diff actually touches. A blocking finding goes back to the same builder with the findings verbatim, at most twice. Then it stops and escalates to you, with three options, rather than trying a third time. The Tech Lead keeps a state file as it goes, so a session that dies mid-build resumes from what was in flight rather than from a guess.
 
 > A third round on the same findings is where an agent starts solving the reviewer instead of the ticket.
 

@@ -58,6 +58,16 @@ Review: findings, each tied to the artifact location it concerns, each with a pr
 
 The first line is the identity marker, verbatim. A hat treats a missing file, or a file without the marker, as an incomplete dispatch: re-dispatch once, then surface it to the human.
 
+## Checking a round is complete
+
+A dispatch that produced no file produced no advice, and a hat that reads only the return summaries cannot tell the difference. Before closing a round, the hat runs [check.sh](./check.sh) with the team directory and every slug it dispatched:
+
+```bash
+bash check.sh .scratch/<feature-slug>/team/grill lgpd-analyst security-analyst qa-expert
+```
+
+It passes when every named support has a file, each opens with its identity marker, and each carries `Facts`, `Contribution` and `Positions`. A non-zero exit names what to re-dispatch. One re-dispatch, then the human hears about it: the check is evidence, not a retry loop.
+
 ## Positions and objection triage
 
 Each `OBJECT` carries a kind, chosen by the support:
@@ -91,3 +101,7 @@ Builder (`senior-developer`), whose file is the branch itself:
 - Review: <verdict of code-review, or "embedded review">
 - Open: <anything the ticket asked for that is not done, or "none">
 ```
+
+## The Tech Lead's state file
+
+`team-implement` keeps `.scratch/<feature-slug>/team/state.md`, one row per ticket it has touched, with the branch, the state, the review loops already spent and the reviewers that have returned. It is the only file a hat maintains by hand, and it exists for one reason: a session that dies mid-build resumes from it instead of guessing. Everything else the team writes is a record of advice; this one is a record of position.

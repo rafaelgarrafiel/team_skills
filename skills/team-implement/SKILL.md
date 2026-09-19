@@ -11,7 +11,13 @@ You are the Tech Lead. You distribute, review, merge and escalate; you never wri
 
 Read the `## Team` block in `CLAUDE.md` or `AGENTS.md` and `docs/agents/team.md`: mode (with or without Matt's skills), active advisors, profile, artifact language, the review loop limit, the parallel builder limit. When there is no block, tell the user to run `/setup-team` and stop. Read `docs/agents/issue-tracker.md` when it exists: it says how to fetch, comment on and close a ticket.
 
-## 2. Find the tickets
+## 2. Pick up where the last session left off
+
+Read `.scratch/<feature-slug>/team/state.md` when it exists: it is the record of what was in flight, and it outranks your reconstruction of it. A ticket it lists as `building` has a branch and possibly a worktree already; one as `in review` has reviewers that already returned; one as `escalated` is waiting on the human, so surface its open ruling first and take no further action on that ticket. A `Loops` count already spent counts against the limit; never restart a counter a previous session filled.
+
+When the file does not exist, create it from the template in this skill folder ([state.md](./state.md)) as soon as you have the ready set. Write to it at four moments and never from memory: after dispatching a builder, after a builder returns, after each review round, and after a merge or an escalation. A session that dies between two of those moments is recoverable; one that dies with the file stale is not.
+
+## 3. Find the tickets
 
 The user pointed at tickets (paths, numbers, a feature folder) or at a spec.
 
@@ -20,13 +26,13 @@ The user pointed at tickets (paths, numbers, a feature folder) or at a spec.
 
 Done when you can name the ready set and the `<feature-slug>` under which `.scratch/<feature-slug>/team/` lives.
 
-## 3. Dispatch builders
+## 4. Dispatch builders
 
 Take ready tickets up to the parallel limit. For each, dispatch one `senior-developer`, isolated: its own worktree and branch named `team/<feature-slug>/<NN-slug>` when the harness offers worktree isolation (Claude Code's Agent tool does), otherwise sequentially on separate branches from the same base. Every brief carries, per `team-contribution`: the ticket in full, the spec section it points to, `CONTEXT.md` and the ADR paths, the artifact language, the mode, the branch name. Builders are blind to each other.
 
 Done when every dispatched builder has returned its builder summary. A summary with a non-empty `Open` line goes to the human before any review: it is a ticket-versus-code disagreement, and the human rules on it.
 
-## 4. Review every returned branch
+## 5. Review every returned branch
 
 For each branch, dispatch reviewers in parallel and blind, files under `.scratch/<feature-slug>/team/<NN-slug>/`:
 
@@ -39,6 +45,14 @@ For each branch, dispatch reviewers in parallel and blind, files under `.scratch
 
 Decide the conditions from `git diff --stat` and the ticket, and say which reviewers you chose and why in one line.
 
+Before reading the returns, confirm the round is complete: run the contribution check from the `team-contribution` skill folder, naming the team directory and every reviewer you dispatched.
+
+```bash
+bash <team-contribution skill folder>/check.sh .scratch/<feature-slug>/team/<NN-slug> <slug> <slug>
+```
+
+A non-zero exit names the incomplete dispatches: re-dispatch exactly those, then run it again. A reviewer whose file never lands after one re-dispatch goes to the human, never past.
+
 Read the summaries and files. Then:
 
 - `OBJECT [judgment]` from any reviewer: put it to the human now, with the reviewer's recommendation, and continue with the human's ruling.
@@ -47,15 +61,15 @@ Read the summaries and files. Then:
 
 Done when every branch is ready, escalated, or ruled on by the human.
 
-## 5. Merge and continue
+## 6. Merge and continue
 
-Merge each ready branch into the branch the user is on (a merge commit that names the ticket; on conflict, resolve by intent from the ticket, or bring it to the human when two tickets fought over the same seam). Close the ticket per the tracker doc, quoting any maintained objection in its closing comment. Remove the worktree. Recompute the ready set: tickets this merge unblocked join it. Return to step 3 until no ticket is open, or every open ticket is blocked by an escalated one.
+Record the outcome in `state.md` first, then merge each ready branch into the branch the user is on (a merge commit that names the ticket; on conflict, resolve by intent from the ticket, or bring it to the human when two tickets fought over the same seam). Close the ticket per the tracker doc, quoting any maintained objection in its closing comment. Remove the worktree. Recompute the ready set: tickets this merge unblocked join it. Return to step 4 until no ticket is open, or every open ticket is blocked by an escalated one.
 
 Once at the end, run the full suite on the integrated branch and record the result. Then report: tickets merged, escalated, still blocked; every contribution file path; the suite result.
 
 ## When the user ran `/to-tickets`
 
-Steps 1 to 5 do not apply. Before `to-tickets` publishes, dispatch `senior-developer` once on the draft ticket set (implementability: does each seam exist, what does each ticket assume that the code contradicts, which blocking edge is missing), file under `.scratch/<feature-slug>/team/tickets/`. Fold its facts into the tickets and its `OBJECT [judgment]` items into a question for the human, then let `to-tickets` publish.
+Steps 1 to 6 do not apply. Before `to-tickets` publishes, dispatch `senior-developer` once on the draft ticket set (implementability: does each seam exist, what does each ticket assume that the code contradicts, which blocking edge is missing), file under `.scratch/<feature-slug>/team/tickets/`. Fold its facts into the tickets and its `OBJECT [judgment]` items into a question for the human, then let `to-tickets` publish.
 
 ## When the user ran `/diagnosing-bugs`
 

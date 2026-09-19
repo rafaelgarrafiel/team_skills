@@ -20,6 +20,10 @@ Type `/team-implement`, or, with Matt's skills installed, the agent loads it on 
 
 Every ticket goes through the same four moves. A **builder** gets the ticket, its spec section and the domain docs, builds test-first at the agreed seam, reviews its own diff and commits to its branch. **Reviewers** are dispatched blind on the branch: QA always (runs the suite, audits the tests along the Spec axis), UX, DBA, security, LGPD and SRE by what the diff touches. A blocking finding sends the same builder back with the findings verbatim, at most the configured **loop limit** (2 by default). Past the limit the hat stops and **escalates**: you see the findings and choose to accept with the objection recorded, redo, or drop. A passing branch is merged, its ticket closed, and the tickets it unblocked join the ready set.
 
+## Resumable, and checked
+
+Two mechanisms keep a long build honest. The hat writes `.scratch/<feature>/team/state.md` at four moments (builder dispatched, builder returned, review round done, merged or escalated), so a session that dies mid-build resumes from what was in flight instead of re-deriving it: which builder is out, how many review loops a ticket has already spent, which reviewers came back. And before reading any review, it runs the contribution check, which fails when a dispatched reviewer left no file or left a malformed one. A dispatch that produced no file produced no advice, and the return summary alone cannot tell you that.
+
 ## Common questions
 
 **Why does it stop after two failed rounds instead of trying harder?**
@@ -33,6 +37,7 @@ Yes, when two tickets touch one seam. The blocking edges from `/to-tickets` are 
 - The main session's own diff is empty: every code change arrived on a `team/<feature>/<NN-slug>` branch.
 - Each merged ticket has a QA file beside it, and a conditional reviewer's file only when the diff earned one.
 - An escalation shows you verbatim findings and three options, never a fourth attempt.
+- `state.md` matches reality: what it calls `building` has a branch, what it calls `merged` is in your history.
 
 ## Where it fits
 

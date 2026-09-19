@@ -32,7 +32,13 @@ The profile sets the floor. `express`: dispatch on round 1 and once more before 
 
 Dispatch them **in parallel and blind**, one brief each, per `team-contribution`: the design tree so far (settled decisions and the draft frontier), the `CONTEXT.md` and ADR paths, the artifact language, the mode, the round number, the output path. Draft frontier questions the advisors could settle as facts stay out of the shown round until they return.
 
-Done when every dispatched advisor's file exists with its identity marker (re-dispatch once on a missing one, then tell the human).
+Done when the contribution check passes for this round. Run it from the `team-contribution` skill folder, naming the team directory and every advisor you dispatched:
+
+```bash
+bash <team-contribution skill folder>/check.sh .scratch/<feature-slug>/team/grill <slug> <slug>
+```
+
+A non-zero exit names what is missing or malformed: re-dispatch exactly those advisors once, then run it again. What still fails after that goes to the human before the round is shown, because a round built on a half-finished dispatch hides the advice it is missing.
 
 ## 4. Merge what came back into the round
 

@@ -25,8 +25,15 @@ the limit in `docs/agents/team.md`.
 
 ## Open rulings
 
-One line per question waiting on the human, with the ticket it blocks. Cleared
-when the human rules; the ruling goes into the ticket, not here.
+One line per question waiting on the human, with the ticket it blocks. When two
+reviewers raise the same judgment, it is one line with both cited.
+
+## Rulings
+
+One line per decision the human made, dated, moved here from Open rulings when
+it lands: `- <date> <ticket> <question, short>: <ruling>`. The ruling also goes
+into the ticket; this list is what a resumed session reads to know what was
+already decided, so it never asks twice.
 
 ## Log
 

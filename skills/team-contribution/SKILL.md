@@ -54,7 +54,7 @@ Path, by dispatch:
 
 `.scratch/` is the local scratch area whatever the issue tracker is; on GitHub or GitLab the hat also quotes maintained objections into the issue.
 
-The hat writes each round's brief to `<team-dir>/round-<N>-brief.md` and points the supports at it, so the brief the round was answered against stays on disk beside the answers. A round 2 appends its own `## Round 2` section to each support's existing file and reads the sibling positions from the round 1 sections; it never overwrites round 1.
+The hat writes each round's brief to `<team-dir>/round-<N>-brief.md` (a grill round, or a builder's re-dispatch after a review) and points the supports at it, so the brief the round was answered against stays on disk beside the answers, and a resumed session can re-dispatch against the same text. A round 2 appends its own `## Round 2` section to each support's existing file and reads the sibling positions from the round 1 sections; it never overwrites round 1.
 
 The headings are exactly the four below, at `##`, with `## Round N` above them when a file spans rounds. A support that nests them deeper breaks the hat's reading of the file.
 

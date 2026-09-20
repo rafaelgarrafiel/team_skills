@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.1 (unreleased)
+
+- Resume, from the second real recovery: `state.md` gains a `## Rulings` list the resumed session reads so it never asks a settled question twice; a `building` ticket whose branch has commits but whose summary died with the session is verified by the builder, not rebuilt; a review that blocks writes its findings and the human's ruling to `round-<N>-brief.md` before the builder is re-dispatched, so a resumed session re-dispatches against the same text.
+
 ## 0.3.0
 
 - **Dispatch once, then on request.** The roster fires once by default, on the grill's first round; every later pass (grill rounds, the spec review, the ticket check, branch reviews, triage and bug helpers) is offered with its cost and runs only when the human says so. A branch merges on the builder's own review and suite; team reviews are one `review NN` away. `docs/agents/team.md` gains `Dispatch after the first grill round: on request | automatic`; `automatic` is the 0.2 behaviour. ADR 0006 has the numbers from the first project.

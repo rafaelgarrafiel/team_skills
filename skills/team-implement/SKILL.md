@@ -13,7 +13,9 @@ Read the `## Team` block in `CLAUDE.md` or `AGENTS.md` and `docs/agents/team.md`
 
 ## 2. Pick up where the last session left off
 
-Read `.scratch/<feature-slug>/team/state.md` when it exists: it is the record of what was in flight, and it outranks your reconstruction of it. A ticket it lists as `building` has a branch and possibly a worktree already; one as `in review` has reviewers that already returned; one as `escalated` is waiting on the human, so surface its open ruling first and take no further action on that ticket. A `Loops` count already spent counts against the limit; never restart a counter a previous session filled.
+Read `.scratch/<feature-slug>/team/state.md` when it exists: it is the record of what was in flight, and it outranks your reconstruction of it. A ticket it lists as `building` has a branch and possibly a worktree already; one as `in review` has reviewers that already returned; one as `escalated` is waiting on the human, so surface its open ruling first and take no further action on that ticket. A `Loops` count already spent counts against the limit; never restart a counter a previous session filled. A ruling listed under `## Rulings` is settled: apply it, never ask it again.
+
+A ticket listed as `building` whose branch already carries commits but whose builder summary is gone with the old session is **verified, not rebuilt**: dispatch the builder with the branch and the brief it was built against, to check the work item by item, run the suite and the review, and return the summary. Only a branch with no commits is dispatched as a fresh build.
 
 When the file does not exist, create it from the template in this skill folder ([state.md](./state.md)) as soon as you have the ready set. Write to it at four moments and never from memory: after dispatching a builder, after a builder returns, after each review round, and after a merge or an escalation. A session that dies between two of those moments is recoverable; one that dies with the file stale is not.
 
@@ -55,7 +57,7 @@ A non-zero exit names the incomplete dispatches: re-dispatch exactly those, then
 
 - `OBJECT [judgment]` from any reviewer: put it to the human now, with the reviewer's recommendation, and continue with the human's ruling.
 - `Blocking: no` from every reviewer: the branch is **ready** (or, if already merged, the review closes with its files on disk).
-- `Blocking: yes` from any reviewer: re-dispatch the **same builder** on the same branch with every reviewer's findings verbatim. The fix comes back with the builder's own review; it is re-reviewed by the team **only if the human asks again**. Count the iteration. At the loop limit, stop and **escalate**: show the human the findings verbatim and the three options (accept with the objection recorded, redo the ticket from scratch, drop the ticket), and wait.
+- `Blocking: yes` from any reviewer: write the findings, verbatim, with any ruling the human made, to `.scratch/<feature-slug>/team/<NN-slug>/round-<N>-brief.md`, then re-dispatch the **same builder** on the same branch against that brief. The fix comes back with the builder's own review; it is re-reviewed by the team **only if the human asks again**. Count the iteration. At the loop limit, stop and **escalate**: show the human the findings verbatim and the three options (accept with the objection recorded, redo the ticket from scratch, drop the ticket), and wait.
 
 Done when every returned branch is either merged with its proposal stated, under a requested review, escalated, or ruled on by the human.
 

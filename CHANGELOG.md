@@ -1,7 +1,9 @@
 # Changelog
 
-## 0.3.1 (unreleased)
+## 0.3.1
 
+- Codex builders: the Tech Lead creates each builder's worktree with plain git when the dispatch has no isolation and briefs the path; `setup-team` installs `.codex/rules/default.rules` (pre-allowing `git worktree`, `commit`, `add`) with the TOMLs, because the sandbox keeps `.git` read-only and every commit would otherwise escalate; the model parameter is omitted on Codex; sequential building is the explicit floor. Bindings taken from AI-DLC's live-verified Codex harness.
+- Cheaper per turn and per dispatch: the contract splits into a short `SKILL.md` for supports and a `BRIEFING.md` for hats, so every dispatch carries only what the support needs; the Tech Lead offers a fresh session after the second merge (state is complete at a merge, and a session's cost grows with every ticket it carries); a re-dispatched builder skips `code-review` because the reviewers' findings are that round's review; every test run is quiet, summary line only.
 - Tech Lead hygiene: the local tracker's closing status is always `done`; a builder's worktree is checked out directly on the `team/<feature>/<NN-slug>` branch, and any throwaway `worktree-agent-*` branch the harness created is deleted with the worktree.
 - Resume, from the second real recovery: `state.md` gains a `## Rulings` list the resumed session reads so it never asks a settled question twice; a `building` ticket whose branch has commits but whose summary died with the session is verified by the builder, not rebuilt; a review that blocks writes its findings and the human's ruling to `round-<N>-brief.md` before the builder is re-dispatched, so a resumed session re-dispatches against the same text.
 

@@ -131,7 +131,7 @@ Installing both is the intended setup. Nothing is duplicated: this package ships
 | Harness | Skills | Agents | Bridge | Status |
 |---|---|---|---|---|
 | Claude Code | plugin manifest | plugin manifest | `## Team` block plus a `PreToolUse` hook | in use |
-| Codex | `npx skills add` or the Codex plugin | copied by you, command from `$setup-team` | `## Team` block in `AGENTS.md` (Codex does not read `CLAUDE.md`) | setup verified on a real machine; parallel builders unverified |
+| Codex | `npx skills add` or the Codex plugin | copied by you, with the git permission rules, command from `$setup-team` | `## Team` block in `AGENTS.md` (Codex does not read `CLAUDE.md`) | setup and grill verified on a real machine; builders (worktree by git, sequential floor) unverified |
 
 ## Development
 

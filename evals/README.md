@@ -14,7 +14,7 @@ Each case is a folder with a `case.yaml` (the prompt carries the repo context in
 | `brief-scope-and-model` | the hat's brief stops carrying the shared repo facts, the reading scope, or the configured model for the dispatch |
 | `review-on-request` | with dispatch on request, a green builder return gets reviewers dispatched automatically instead of merged on its evidence with the review offered at a cost |
 
-Last full run (0.3.0): 1.00 on every case, three runs each. Scores are per run; the wrapper fails the suite when any run scores below 0.67 (`--threshold`). A full run of the seven cases at three runs each costs about US$ 2 to 3 and takes 10 to 15 minutes. A behaviour that passes two runs in three is variance worth reading, not a failure to ignore: open the HTML report under `evals/results/` and read the losing run.
+Last full run (0.3.1): 1.00 on every case, three runs each, seven cases. Scores are per run; the wrapper fails the suite when any run scores below 0.67 (`--threshold`). A full run of the seven cases at three runs each costs about US$ 2 to 3 and takes 10 to 15 minutes. A behaviour that passes two runs in three is variance worth reading, not a failure to ignore: open the HTML report under `evals/results/` and read the losing run.
 
 ## Writing a case
 

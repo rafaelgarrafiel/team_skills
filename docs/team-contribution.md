@@ -6,6 +6,10 @@
 
 The agent reaches for it on its own: every persona loads it at dispatch, and the hats follow it when they brief and read returns. You read it when you want to know what a file under `.scratch/<feature>/team/` means.
 
+## Two readers, two files
+
+Supports load `SKILL.md`, kept short because it rides along on every dispatch: reading scope, size, the file, positions, the summary. Hats read `BRIEFING.md` beside it: how to brief, the output paths, the completion check, the triage, the state file. What a support never needs never costs a support's context.
+
 ## Once by default, then on request
 
 The roster is dispatched once, on the grill's first round. Every later dispatch is offered in a line with its cost and runs when you say so, because a dispatch is the expensive move: each support reads the repo in its own context and writes a file the hat then reads. Files are capped (eight facts, six items) for the same reason, and so is reading: the brief carries the repo's shared facts and a scope (this repository, the named paths, stop when you can answer), and advisors run on the model `docs/agents/team.md` sets for them, a smaller one than the builders' by default.

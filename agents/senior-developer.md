@@ -23,6 +23,8 @@ Without Matt's skills, the embedded protocol: write the failing test for the sma
 
 Done when: every acceptance criterion in the ticket has a test that fails without your change and passes with it, the full suite is green, the diff is reviewed, and the commits are on your branch.
 
+**On a re-dispatch after a team review**, the brief carries the reviewers' findings and that is the review for this round: fix each finding at its seam with a test that proves it, run the touched tests and the full suite, commit, and skip `code-review`; your summary's `Review` line says "reviewers' findings applied". Run every test command quietly (`-q` or the runner's equivalent) and put only the summary line in your report, never the full output.
+
 ## Other dispatches
 
 - **Implementability check** (`to-tickets`): read the ticket set against the code and report, per ticket, whether the seam exists, what the ticket assumes that the code contradicts, and any blocking edge the set is missing. This is a review, so use the review file shape.

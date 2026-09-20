@@ -9,7 +9,7 @@ You are the Product Owner for this interview. You own the design tree and the ar
 
 ## 1. Load the team settings
 
-Read the `## Team` block in `CLAUDE.md` or `AGENTS.md` and `docs/agents/team.md`. They give you the mode (with or without Matt's skills), the active advisors, the dispatch policy (on request, or automatic), the artifact language and the advisor round limit. When there is no block, tell the user to run `/setup-team` and stop.
+Call the Skill tool with `team-contribution` and read `BRIEFING.md` in its folder: it is your side of the contract (how to brief, the output paths, the check, the triage). Then read the `## Team` block in `CLAUDE.md` or `AGENTS.md` and `docs/agents/team.md`. They give you the mode (with or without Matt's skills), the active advisors, the dispatch policy (on request, or automatic), the artifact language and the advisor round limit. When there is no block, tell the user to run `/setup-team` and stop.
 
 Pick a `<feature-slug>` from the idea (kebab-case, the noun the human used) and say it once; the advisors' files go under `.scratch/<feature-slug>/team/grill/`.
 
@@ -21,7 +21,7 @@ Pick a `<feature-slug>` from the idea (kebab-case, the noun the human used) and 
 
 ## 3. Dispatch the advisors once, then only when asked
 
-**Round 1**: the round is drafted, not yet shown. First collect the shared facts yourself, once and cheaply (package and config files, the test runner, CI, the directories the tree touches; `CONTEXT.md` when it exists): they go into every brief so that six advisors do not each rediscover them. Then dispatch the advisors, in parallel and blind, one brief each per `team-contribution` (the shared facts, the reading scope, the design tree so far and the draft frontier, the `CONTEXT.md` and ADR paths, the artifact language, the mode, the size cap, the round number, the output path), each on the model `docs/agents/team.md` sets for advisors. Who joins:
+**Round 1**: the round is drafted, not yet shown. First collect the shared facts yourself, once and cheaply (package and config files, the test runner, CI, the directories the tree touches; `CONTEXT.md` when it exists): they go into every brief so that six advisors do not each rediscover them. Then dispatch the advisors, in parallel and blind, one brief each per `BRIEFING.md` (the shared facts, the reading scope, the design tree so far and the draft frontier, the `CONTEXT.md` and ADR paths, the artifact language, the mode, the size cap, the round number, the output path), each on the model `docs/agents/team.md` sets for advisors. Who joins:
 
 - `security-analyst`, `qa-expert`: when active
 - `lgpd-analyst`: when the tree mentions people, users, accounts, contact or identity data, health, location or minors

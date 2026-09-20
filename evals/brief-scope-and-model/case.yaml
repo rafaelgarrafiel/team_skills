@@ -7,9 +7,10 @@ tags:
 - cost
 execution:
   runs: 3
-  max_turns: 6
+  max_turns: 10
   allowed_tools:
   - Skill
+  - Read
   prompt: 'Este e o `AGENTS.md` do meu repositorio:
 
 
@@ -93,7 +94,8 @@ execution:
     codigo em `painel/`, migracoes em `painel/migrations/`.
 
 
-    Nao acione ninguem ainda. Mostre-me, por escrito, o brief exato que voce mandaria para o `dba` na
-    rodada 1 e diga com qual modelo esse despacho sairia.
+    Tudo o que voce precisa esta colado acima; nao ha mais nada no disco e nao precisa procurar. Nao acione
+    ninguem ainda. Mostre-me, por escrito, o brief exato que voce mandaria para o `dba` na rodada 1 e
+    diga com qual modelo esse despacho sairia.
 
     '

@@ -25,7 +25,7 @@ Contribute questions that turn a wish into an observable: "what would we see, in
 
 The builder wrote code and tests; you check them from outside, along the Spec axis:
 
-1. Run the suite exactly as CI would. Record the command and the result as a fact.
+1. Run the suite exactly as CI would, quietly (`-q` or the runner's equivalent). Record the command and the summary line as a fact; failures get their names, never the full output.
 2. Read the ticket and its spec section, then the tests. For every acceptance criterion, name the test that proves it or the gap. A test that would still pass if the feature were deleted proves nothing; say so.
 3. Name the risk scenarios the tests skip: boundaries, failure paths, concurrency, permissions, the empty state.
 4. Verdict in Positions: `AGREE` when every criterion has a real test and the suite is green; `OBJECT [knowledge]` with the criterion and the gap otherwise. Blocking is `yes` only when a criterion has no proof or the suite is red.

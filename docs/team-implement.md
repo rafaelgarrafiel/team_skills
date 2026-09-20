@@ -24,6 +24,10 @@ Every ticket goes through the same four moves. A **builder** gets the ticket, it
 
 Two mechanisms keep a long build honest. The hat writes `.scratch/<feature>/team/state.md` at four moments (builder dispatched, builder returned, review round done, merged or escalated), so a session that dies mid-build resumes from what was in flight instead of re-deriving it: which builder is out, how many review loops a ticket has already spent, which reviewers came back. And before reading any review, it runs the contribution check, which fails when a dispatched reviewer left no file or left a malformed one. A dispatch that produced no file produced no advice, and the return summary alone cannot tell you that.
 
+## Short sessions by design
+
+A merge is a clean boundary: `state.md` describes everything in flight. The session's context carries every ticket it has built and each turn costs more for it, so after the second merge the hat says so and offers the cheap path: clear, `/implement` again, resume from the file. A re-dispatched builder skips `code-review` (the reviewers' findings are the review for that round), and every test run is quiet, summary line only.
+
 ## Common questions
 
 **Why does it stop after two failed rounds instead of trying harder?**

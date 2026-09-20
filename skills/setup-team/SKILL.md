@@ -49,10 +49,12 @@ Show the draft of `docs/agents/team.md` (seed: [team.md](./team.md)) and of the 
 The Codex plugin manifest cannot ship agents, and the Codex sandbox refuses writes under `.codex/`, so this step is the human's. The TOMLs travel inside this skill folder, at [codex-agents/](./codex-agents/), one per role. Resolve this skill's absolute folder (the path you read this file from), then give the user one command to run in the repo root, with that path filled in:
 
 ```bash
-mkdir -p .codex/agents && cp "<this skill folder>/codex-agents/"*.toml .codex/agents/
+mkdir -p .codex/agents .codex/rules && cp "<this skill folder>/codex-agents/"*.toml .codex/agents/ && cp "<this skill folder>/codex-rules/default.rules" .codex/rules/default.rules
 ```
 
-Attempt it yourself first only when the harness allows; on a refusal, show the command and wait. Then verify: list `.codex/agents/` and confirm one file per active role. Tell the user the files are generated and get replaced on the next run of this skill; local edits belong in a repo-owned persona instead. Point them at the `[agents]` table in `.codex/config.toml` if they want to cap `max_concurrent_threads_per_session` for the parallel builders.
+The second copy matters as much as the first: Codex's `workspace-write` sandbox keeps `.git` read-only by design, so without [codex-rules/default.rules](./codex-rules/default.rules) (which pre-allows `git worktree`, `git commit` and `git add`) every builder commit escalates to the human and a parallel build stalls on the first one. When a `.codex/rules/default.rules` already exists, show the three `prefix_rule` lines and ask the user to append them instead of overwriting.
+
+Attempt the copies yourself first only when the harness allows; on a refusal, show the command and wait. Then verify: list `.codex/agents/` (one file per active role) and `.codex/rules/`. Tell the user the files are generated and get replaced on the next run of this skill; local edits belong in a repo-owned persona instead. Two config notes for them, in one line each: `[agents] max_concurrent_threads_per_session` in `.codex/config.toml` caps the parallel builders; headless runs (`codex exec`) cannot escalate, so they need `writable_roots = ["<absolute repo path>/.git"]` under `[sandbox_workspace_write]`. The model settings from section F do not apply on Codex: roles inherit `config.toml`.
 
 ## 5. Done
 

@@ -7,9 +7,10 @@ tags:
 - conditions
 execution:
   runs: 3
-  max_turns: 6
+  max_turns: 10
   allowed_tools:
   - Skill
+  - Read
   prompt: 'Este e o `AGENTS.md` do meu repositorio:
 
 

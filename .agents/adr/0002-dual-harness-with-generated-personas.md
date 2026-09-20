@@ -32,3 +32,9 @@ The `codex` CLI is not installed on the machine that built v0.1.0, so the Codex 
 - **The Codex sandbox refuses writes under `.codex/`** ("Read-only file system"). Installing the agents is a human step: the skill prints the one-line copy and verifies afterwards.
 
 Codex's own subagent spawning works (the session spawned two read-only inspectors on its own), so parallel builders remain plausible and still unverified.
+
+## Update, 2026-09-20: parallel builders on Codex, from AI-DLC's verified bindings
+
+Read before changing anything: AI-DLC dispatches Codex roles with `spawn_agent` (the TOML loads the persona; sequential spawns suffice; `[agents] max_depth = 1`), points a spawned role at a worktree by path in the prompt, and runs parallel construction not through subagents but through headless `codex exec -C <worktree>` workers with a referee tool. Its sandbox notes: `workspace-write` keeps `.git` read-only by design; interactive sessions escalate; a `.codex/rules/default.rules` pre-allowing `git worktree`, `commit` and `add` removes the prompts; headless runs need `writable_roots`. Matt's skills, by contrast, name no harness at all and describe intent ("parallel sub-agents") for the harness to map.
+
+Decision: the Tech Lead creates the worktree itself with plain git when the dispatch has no isolation and puts the path in the brief; `setup-team` hands the human the permission rules with the TOMLs; the model parameter is omitted on Codex; sequential building is the explicit floor. AI-DLC's exec-worker swarm is not copied: it exists for autonomous construction without a human and depends on its own convergence tool. Whether Codex delivers parallel or sequential builds under this design is what the Codex pilot measures.

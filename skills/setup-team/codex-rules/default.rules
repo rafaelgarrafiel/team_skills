@@ -1,0 +1,14 @@
+# Codex permission rules for a repo the team builds in.
+# Installed by /setup-team into .codex/rules/default.rules (a human step: the
+# Codex sandbox cannot write under .codex/).
+#
+# Codex's workspace-write sandbox keeps .git read-only by design. In an
+# interactive session every builder commit would then escalate (deny, approve,
+# retry); these three prefixes let builders create their worktree, stage and
+# commit without a prompt each time. Headless runs cannot escalate at all: for
+# those, also set writable_roots = ["<absolute path to this repo>/.git"] under
+# [sandbox_workspace_write] in .codex/config.toml (linked worktrees keep their
+# git dirs under <repo>/.git/worktrees/).
+prefix_rule(pattern = ["git", "worktree"], decision = "allow")
+prefix_rule(pattern = ["git", "commit"], decision = "allow")
+prefix_rule(pattern = ["git", "add"], decision = "allow")

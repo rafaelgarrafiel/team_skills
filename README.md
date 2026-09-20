@@ -7,6 +7,8 @@
 
 It sits on top of [mattpocock/skills](https://github.com/mattpocock/skills). You keep running `/grill-with-docs`, `/to-spec`, `/to-tickets` and `/implement`; the team runs inside them. Installed on its own, it still runs the interview and the build with a smaller reach.
 
+Version 0.3.1. Built and measured on one real project (a health portfolio system: 19 tickets, 540 tests) and one Codex machine; seven behavioural evals at 1.00. Decisions are ADRs in [.agents/adr/](./.agents/adr/); the cost story (why the roster fires once, why advisors run on a smaller model, why the build runs in short sessions) is ADRs 0006 and 0007.
+
 ## Install
 
 <details>
@@ -98,9 +100,9 @@ Skills split on who can invoke them. **User-invoked** are reachable only when yo
 
 **Model-invoked**
 
-- **[team-grill](./skills/team-grill/SKILL.md)**: the Product Owner hat. Runs the interview, dispatches the advisors blind before each round, merges their facts into the design tree and their questions into the round, and reaches for `codebase-design` when the tree turns structural. ([docs](./docs/team-grill.md))
-- **[team-implement](./skills/team-implement/SKILL.md)**: the Tech Lead hat. Reads the tracker, builds the ready set from the blocking edges, dispatches builders in isolated worktrees, has every branch reviewed, merges what passes and escalates what does not. ([docs](./docs/team-implement.md))
-- **[team-contribution](./skills/team-contribution/SKILL.md)**: the contract every specialist follows: the brief, the file, the positions, the objection kinds, the return summary. ([docs](./docs/team-contribution.md))
+- **[team-grill](./skills/team-grill/SKILL.md)**: the Product Owner hat. Runs the interview, dispatches the advisors blind before round one and offers later passes with their cost, merges their facts into the design tree and their questions into the round, and reaches for `codebase-design` when the tree turns structural. ([docs](./docs/team-grill.md))
+- **[team-implement](./skills/team-implement/SKILL.md)**: the Tech Lead hat. Reads the tracker, builds the ready set from the blocking edges, dispatches builders in isolated worktrees, merges each green branch on the builder's own evidence and names what a team review would cost, runs the review when you ask and escalates at the loop limit. Keeps `state.md` so a dead session resumes without loss, and offers a fresh session after the second merge. ([docs](./docs/team-implement.md))
+- **[team-contribution](./skills/team-contribution/SKILL.md)**: the contract every specialist follows (reading scope, size, the file, positions, the return summary), kept short because it rides on every dispatch; `BRIEFING.md` beside it is the hats' side (how to brief, the completion check `check.sh`, triage, the state file). ([docs](./docs/team-contribution.md))
 
 **Agents**
 

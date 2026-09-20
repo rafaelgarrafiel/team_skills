@@ -2,6 +2,7 @@
 
 ## 0.3.1 (unreleased)
 
+- Tech Lead hygiene: the local tracker's closing status is always `done`; a builder's worktree is checked out directly on the `team/<feature>/<NN-slug>` branch, and any throwaway `worktree-agent-*` branch the harness created is deleted with the worktree.
 - Resume, from the second real recovery: `state.md` gains a `## Rulings` list the resumed session reads so it never asks a settled question twice; a `building` ticket whose branch has commits but whose summary died with the session is verified by the builder, not rebuilt; a review that blocks writes its findings and the human's ruling to `round-<N>-brief.md` before the builder is re-dispatched, so a resumed session re-dispatches against the same text.
 
 ## 0.3.0

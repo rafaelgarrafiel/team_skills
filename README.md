@@ -7,7 +7,7 @@
 
 It sits on top of [mattpocock/skills](https://github.com/mattpocock/skills). You keep running `/grill-with-docs`, `/to-spec`, `/to-tickets` and `/implement`; the team runs inside them. Installed on its own, it still runs the interview and the build with a smaller reach.
 
-Version 0.3.1. Built and measured on one real project (a health portfolio system: 19 tickets, 540 tests) and one Codex machine; seven behavioural evals at 1.00. Decisions are ADRs in [.agents/adr/](./.agents/adr/); the cost story (why the roster fires once, why advisors run on a smaller model, why the build runs in short sessions) is ADRs 0006 and 0007.
+Version 0.3.2. Built and measured on one real project (a health portfolio system: 19 tickets, 540 tests) and one Codex machine; eight behavioural evals. Decisions are ADRs in [.agents/adr/](./.agents/adr/); the cost story (why the roster fires once, why advisors run on a smaller model, why the build runs in short sessions) is ADRs 0006 and 0007.
 
 ## Install
 
@@ -22,6 +22,14 @@ claude plugin marketplace add rafaelgarrafiel/team_skills
 claude plugins install team-skills@team-skills
 ```
 
+Claude Code keeps a copy of the plugin and only replaces it when the version number moves. Every behaviour change here bumps the version, so update before starting on a repo:
+
+```bash
+claude plugins update team-skills
+```
+
+`claude plugin details team-skills` shows the installed version; compare it with the one at the top of this README. To run straight from a clone while developing the plugin, skip the install and start Claude with `claude --plugin-dir /path/to/team_skills` instead.
+
 </details>
 
 <details>
@@ -31,11 +39,17 @@ claude plugins install team-skills@team-skills
 npx skills@latest add rafaelgarrafiel/team_skills
 ```
 
-The skills arrive through the installer. The subagents travel inside the `setup-team` skill; `$setup-team` gives you the one-line copy into `.codex/agents/` (the Codex manifest has no field for agents, and the Codex sandbox cannot write there itself).
+The skills arrive through the installer. The subagents travel inside the `setup-team` skill; `$setup-team` gives you the one-line copy into `.codex/agents/` (the Codex manifest has no field for agents, and the Codex sandbox cannot write there itself). To update:
+
+```bash
+npx skills@latest update
+```
 
 </details>
 
-Then run `/setup-team` once per repo, and you are ready. It detects whether Matt's skills are installed, reuses their issue tracker and domain settings, and asks for the profile, the active advisors, the artifact language and the loop limits.
+Then run `/setup-team` once per repo, and you are ready. It detects whether Matt's skills are installed, reuses their issue tracker and domain settings, and asks for the profile, the active advisors, the artifact language, the models and the loop limits.
+
+A repo set up by an older version keeps working: lines a newer version added take the current defaults, and the hat says so in one line. Re-run `/setup-team` to record them; it asks only what is missing.
 
 ## Why this exists
 

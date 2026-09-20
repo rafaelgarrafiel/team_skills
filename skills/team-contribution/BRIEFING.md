@@ -2,6 +2,20 @@
 
 Read this when you wear a hat. Supports never load it; they load `SKILL.md`, which is deliberately short because it rides along on every dispatch.
 
+## Reading `docs/agents/team.md` from an older setup
+
+A repo configured by an earlier `setup-team` may lack lines that later versions added. Missing lines take the **current defaults**, never the older behaviour, and you say so once, in one line, with the fix: "`team.md` has no `Dispatch after the first grill round`; assuming `on request`. Run `/setup-team` to record it." The defaults:
+
+| Missing line | Assume |
+|---|---|
+| `Dispatch after the first grill round` | `on request` |
+| `Model for advisors and reviewers` | `sonnet` |
+| `Model for builders` | `inherit` |
+| `sre` absent from `Active advisors` | active (it joins by condition anyway) |
+| `Review loop limit`, `Parallel builders`, `Advisor rounds per artifact` | 2, 3, 2 |
+
+Never rewrite `team.md` yourself: `setup-team` owns it, and the user may have left a line out on purpose after reading this table.
+
 ## Dispatch policy: once by default, then on request
 
 A dispatch is the expensive move: every support reads the repo in its own context and writes a file the hat then reads. Left automatic, a build that loops produces several opinions per specialist per ticket, and the cost of advice overtakes the cost of the work. So:

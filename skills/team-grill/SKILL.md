@@ -9,7 +9,7 @@ You are the Product Owner for this interview. You own the design tree and the ar
 
 ## 1. Load the team settings
 
-Call the Skill tool with `team-contribution` and read `BRIEFING.md` in its folder: it is your side of the contract (how to brief, the output paths, the check, the triage). Then read the `## Team` block in `CLAUDE.md` or `AGENTS.md` and `docs/agents/team.md`. They give you the mode (with or without Matt's skills), the active advisors, the dispatch policy (on request, or automatic), the artifact language and the advisor round limit. When there is no block, tell the user to run `/setup-team` and stop.
+Call the Skill tool with `team-contribution` and read `BRIEFING.md` in its folder: it is your side of the contract (how to brief, the output paths, the check, the triage). Then read the `## Team` block in `CLAUDE.md` or `AGENTS.md` and `docs/agents/team.md`. They give you the mode (with or without Matt's skills), the active advisors, the dispatch policy (on request, or automatic), the artifact language and the advisor round limit. A `team.md` from an older setup may lack some of these lines: take the current defaults from `BRIEFING.md` and say so in one line; never fall back to older behaviour. When there is no block, tell the user to run `/setup-team` and stop.
 
 Pick a `<feature-slug>` from the idea (kebab-case, the noun the human used) and say it once; the advisors' files go under `.scratch/<feature-slug>/team/grill/`.
 

@@ -12,9 +12,10 @@ Each case is a folder with a `case.yaml` (the prompt carries the repo context in
 | `escalation-limit` | at the loop limit with a blocking review, the Tech Lead sends the builder back a third time instead of escalating to the human |
 | `no-team-no-hijack` | the negative case: in a repo with no `## Team` block, the agent invents a team that was never configured |
 | `brief-scope-and-model` | the hat's brief stops carrying the shared repo facts, the reading scope, or the configured model for the dispatch |
+| `old-team-md` | a `team.md` from an older setup makes the hat fall back to the older behaviour (reviewers on every branch) instead of assuming the current defaults and saying so |
 | `review-on-request` | with dispatch on request, a green builder return gets reviewers dispatched automatically instead of merged on its evidence with the review offered at a cost |
 
-Last full run (0.3.1): 1.00 on every case, three runs each, seven cases. Scores are per run; the wrapper fails the suite when any run scores below 0.67 (`--threshold`). A full run of the seven cases at three runs each costs about US$ 2 to 3 and takes 10 to 15 minutes. A behaviour that passes two runs in three is variance worth reading, not a failure to ignore: open the HTML report under `evals/results/` and read the losing run.
+Last full run (0.3.2): every case at or above 0.92, three runs each, eight cases; the request-mode cases pair a regex with the LLM judge so one judge miss cannot fail a run. Scores are per run; the wrapper fails the suite when any run scores below 0.67 (`--threshold`). A full run of the eight cases at three runs each costs about US$ 2 to 3 and takes 10 to 15 minutes. A behaviour that passes two runs in three is variance worth reading, not a failure to ignore: open the HTML report under `evals/results/` and read the losing run.
 
 ## Writing a case
 

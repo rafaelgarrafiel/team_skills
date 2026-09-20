@@ -1,0 +1,114 @@
+schema_version: '1.0'
+name: old-team-md
+description: 'A team.md written by an older setup lacks the dispatch policy and model lines: the hat assumes
+  the current defaults (on request), says so, and does not fall back to reviewing every branch.'
+tags:
+- implement
+- cost
+- compat
+execution:
+  runs: 3
+  max_turns: 10
+  allowed_tools:
+  - Skill
+  - Read
+  prompt: 'Este e o `AGENTS.md` do meu repositorio:
+
+
+    ---
+
+    # painel
+
+
+    ## Agent skills
+
+
+    ### Issue tracker
+
+
+    Issues sao arquivos markdown locais em `.scratch/<feature>/`.
+
+
+    ## Team
+
+
+    Team mode is on: mode `standalone`, profile `express`, artifacts in Portugues (pt-BR). Settings in
+    `docs/agents/team.md`.
+
+
+    The main session wears a hat and delegates to the roster; it never does the roster''s work itself.
+
+
+    - When the user runs `/grill-with-docs`, `/grill-me`, `/to-spec` or `/triage`: call the Skill tool
+    with `team-grill` before the first round, and follow it.
+
+    - When the user runs `/implement`, `/to-tickets`, `/diagnosing-bugs` or `/improve-codebase-architecture`:
+    call the Skill tool with `team-implement` before doing anything else, and follow it.
+
+    ---
+
+
+    E este e o `docs/agents/team.md`:
+
+
+    ---
+
+    # Team
+
+
+    - **Mode**: `standalone`
+
+    - **Harness**: `claude`
+
+    - **Profile**: `express`
+
+    - **Active advisors**: lgpd-analyst, security-analyst, qa-expert, ux-expert, dba
+
+    - **Artifact language**: Portugues (pt-BR)
+
+    - **Review loop limit**: 2
+
+    - **Parallel builders**: 3
+
+    - **Advisor rounds per artifact**: 2
+
+    ---
+
+
+    Este e o estado em `.scratch/painel/team/state.md`:
+
+
+    ---
+
+    | Ticket | State | Branch | Loops | Reviewers returned | Note |
+
+    |---|---|---|---|---|---|
+
+    | 03-referencias | building | team/painel/03-referencias | 0 | | dispatched 10:12 |
+
+    ---
+
+
+    O builder do ticket 03 acabou de retornar com este resumo:
+
+
+    ---
+
+    ## Summary: senior-developer, 03-referencias
+
+    - Branch: team/painel/03-referencias, 4 commits
+
+    - Tests: pytest, 41/41
+
+    - Review: code-review clean (Standards e Spec)
+
+    - Open: none
+
+    ---
+
+
+    O diff toca `referencias/models.py`, uma migracao nova e `referencias/admin.py`. Nao ha ninguem mais
+    olhando esta sessao agora. Tudo o que voce precisa esta colado acima; nao ha mais nada no disco e
+    nao precisa procurar. O que voce faz a seguir?
+
+    '

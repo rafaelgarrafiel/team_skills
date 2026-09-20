@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.2
+
+- A `docs/agents/team.md` written by an older `setup-team` takes the current defaults for the lines it lacks (dispatch on request, advisors on `sonnet`, builders `inherit`, `sre` active), and the hat says so in one line with the fix. Older behaviour is never the fallback. `setup-team` re-run on an old file asks only the missing sections.
+
 ## 0.3.1
 
 - Codex builders: the Tech Lead creates each builder's worktree with plain git when the dispatch has no isolation and briefs the path; `setup-team` installs `.codex/rules/default.rules` (pre-allowing `git worktree`, `commit`, `add`) with the TOMLs, because the sandbox keeps `.git` read-only and every commit would otherwise escalate; the model parameter is omitted on Codex; sequential building is the explicit floor. Bindings taken from AI-DLC's live-verified Codex harness.

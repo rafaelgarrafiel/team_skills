@@ -1,6 +1,6 @@
 {
   "name": "team-skills",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A team for your coding agent: Product Owner and Tech Lead hats on the main session, LGPD, security, QA, UX and DBA advisors and senior-developer builders as subagents. Overlays mattpocock/skills when installed; runs standalone when not.",
   "author": {
     "name": "Rafael Garrafiel"

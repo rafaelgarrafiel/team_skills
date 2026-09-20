@@ -14,7 +14,7 @@ Read what exists; assume nothing:
 
 - Are Matt's skills installed? Look for `grilling`, `tdd`, `to-tickets` among the skills available to you, or a `skills/` folder carrying them. This sets the **mode**: `with-matt` or `standalone`.
 - `docs/agents/issue-tracker.md` and `docs/agents/domain.md`: Matt's setup output. When present, the tracker and the domain layout are settled; never re-ask them.
-- `docs/agents/team.md` and a `## Team` block: a previous run of this skill, to update in place.
+- `docs/agents/team.md` and a `## Team` block: a previous run of this skill, to update in place. When the file predates a setting this version asks for, keep every line the user already has, ask only the missing sections, and name what was added at the end.
 - Which harness is this: Claude Code (a `.claude/` folder, or this skill loaded from a Claude plugin) or Codex (`.codex/`, `.agents/skills/`, or this skill loaded from `~/.codex`). It decides which file carries the block (step 3) and whether step 4 runs.
 - `CLAUDE.md` and `AGENTS.md` at the root, and whether `CLAUDE.md` imports the other (`@AGENTS.md`).
 - Signals for the conditional advisors: a frontend (templates, components, a `src/pages` or `app/` tree) and a data layer (migrations, models, an ORM). Not asked; recorded as hints.

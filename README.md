@@ -118,6 +118,18 @@ Skills split on who can invoke them. **User-invoked** are reachable only when yo
 
 A repo can add its own advisor: drop a persona that follows [the contract](./skills/team-contribution/SKILL.md) into your harness's agents folder and list it in `/setup-team`.
 
+## What it costs
+
+Measured on the first project, five sessions and 72 dispatches, at list API prices for the session's model. Three findings, and the settings that follow from them.
+
+**Under the original policy (every reviewer on every branch and every loop, everything on the session's model) the team cost about 3× a single agent running Matt's `/implement` alone**, per ticket including its share of the grill and the spec. Two thirds of that was cache reads: the context each agent re-reads on every turn, not what it writes. The advice was good (idempotency broken by a seeder, a reset token reaching the proxy log, a rate-limit bucket that emptied itself, a contrast failure), which is why it stayed one `review NN` away; what changed is who decides to spend on it.
+
+**With the current defaults (roster dispatched once, reviews on request, advisors on a smaller model, no second `code-review` on a re-dispatch, quiet test output, short sessions) the expected cost is 1.5 to 1.8× a single agent.** The remainder is the builder itself, which is the work.
+
+**The largest single lever is ticket size, not the team.** Builders were 62% of the total, and a builder's cost grows faster than linearly with its length, because every turn re-reads a context that only grows. A ticket that takes 300 builder turns costs far more than two that take 150. The senior developer's implementability check asks for splits for exactly this reason; take them.
+
+Cost is measurable from your own transcripts: each session under `~/.claude/projects/<repo>/` carries per-message token usage, and every subagent has its own file beside it.
+
 ## With and without Matt's skills
 
 | On its own | With `mattpocock-skills` |

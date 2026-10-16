@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.1
+
+- **The installed version is readable.** The lockfile of `npx skills` records the source and a hash of each skill, never a semantic version, so on Codex nobody could tell which version they ran. Every `SKILL.md` now carries `metadata.version` in its frontmatter; `/ask-team` reports it; `setup-team` records it on a `Team-skills version` line of `docs/agents/team.md` so a repo set up before an update shows the difference; the generated Codex agents carry it in their header.
+- `scripts/set-version.sh <x.y.z>` sets the version everywhere in one step, and `scripts/validate.sh` fails when a manifest, `package.json`, a `SKILL.md` or the README line disagree. The README said 0.3.2 in 0.4.0; this is why the check exists.
+
 ## 0.4.0
 
 - **Knowledge transfer for a cockpit** (ADR 0008). A repo that holds the team's grill, specs and tickets for a platform whose code lives in other repositories can list them in a `## Projects` section of `docs/agents/team.md` (asked by `setup-team`). After the final suite, `team-implement` offers, with its cost, to write the delivery into each project touched, and dispatches only on the human's yes, whatever the dispatch setting. New persona `knowledge-keeper`: one per project, parallel and blind, writes a delivery record (`docs/deliveries/<slug>.md`), the project's ADRs and glossary terms into that one project, fits its numbering, language and format, and commits to the branch the human names without merging or pushing. A project-only ADR is moved and leaves a pointer in the cockpit; a cross-project ADR stays canonical there. `state.md` gains a `## Knowledge` section so a rerun updates instead of duplicating.

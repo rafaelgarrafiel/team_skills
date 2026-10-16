@@ -10,7 +10,7 @@ A plugin for Claude Code and Codex that adds a **team** (Product Owner and Tech 
 - `.agents/adr/`: decisions. `.agents/roster.md`: who leads and supports where. The contribution contract is the `team-contribution` skill.
 - `hooks/`: the Claude Code `PreToolUse` overlay hook (ADR 0003). `docs/<skill>.md`: one human-facing page per skill, in the shape of Matt's docs pages (What it does, When to reach for it, Common questions, It's working if, Where it fits).
 - `evals/`: behavioural eval cases for `claude plugin eval`, run with `scripts/eval.sh` (costs money, so not in CI; run before a release and after changing a hat, a persona or the Team block). `evals/README.md` lists what each case catches.
-- `PLAN.md`: the phased implementation plan, kept current until v1.0 ships. `scripts/validate.sh` before any commit.
+- `PLAN.md`: the phased implementation plan, kept current until v1.0 ships. `scripts/validate.sh` before any commit. A release bumps the version with `scripts/set-version.sh <x.y.z>` (manifests, `package.json`, every skill's `metadata.version`, the README line), never by hand: `validate.sh` fails when they disagree.
 
 ## Conventions
 

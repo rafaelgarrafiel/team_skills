@@ -1,6 +1,8 @@
 ---
 name: team-contribution
 description: The contribution contract every team support follows. Use when dispatched as an advisor, reviewer or builder by the Product Owner or Tech Lead hat. Defines the reading scope, the size cap, the contribution file, positions and objection kinds, and the return summaries. Hats read BRIEFING.md beside this file for how to brief, check and triage.
+metadata:
+  version: "0.4.1"
 ---
 
 # Contribution contract

@@ -7,7 +7,7 @@
 
 It sits on top of [mattpocock/skills](https://github.com/mattpocock/skills). You keep running `/grill-with-docs`, `/to-spec`, `/to-tickets` and `/implement`; the team runs inside them. Installed on its own, it still runs the interview and the build with a smaller reach.
 
-Version 0.3.2. Built and measured on one real project (a health portfolio system: 19 tickets, 540 tests) and one Codex machine; eight behavioural evals. Decisions are ADRs in [.agents/adr/](./.agents/adr/); the cost story (why the roster fires once, why advisors run on a smaller model, why the build runs in short sessions) is ADRs 0006 and 0007.
+Version 0.4.1. Built and measured on one real project (a health portfolio system: 19 tickets, 540 tests) and one Codex machine; ten behavioural evals. Decisions are ADRs in [.agents/adr/](./.agents/adr/); the cost story (why the roster fires once, why advisors run on a smaller model, why the build runs in short sessions) is ADRs 0006 and 0007.
 
 ## Install
 
@@ -28,7 +28,7 @@ Claude Code keeps a copy of the plugin and only replaces it when the version num
 claude plugins update team-skills
 ```
 
-`claude plugin details team-skills` shows the installed version; compare it with the one at the top of this README. To run straight from a clone while developing the plugin, skip the install and start Claude with `claude --plugin-dir /path/to/team_skills` instead.
+`claude plugin details team-skills` shows the installed version; compare it with the one at the top of this README. Installed through `npx skills` (Codex), the lockfile has no version, so ask the agent to run `/ask-team` (or `$ask-team`): every skill carries its version in its frontmatter, and `docs/agents/team.md` records the version that last set the repo up. To run straight from a clone while developing the plugin, skip the install and start Claude with `claude --plugin-dir /path/to/team_skills` instead.
 
 </details>
 

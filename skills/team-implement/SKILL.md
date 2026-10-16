@@ -1,6 +1,8 @@
 ---
 name: team-implement
 description: "The Tech Lead hat. Use when team mode is on (a Team block in CLAUDE.md or AGENTS.md) and the user runs /implement, /to-tickets, /diagnosing-bugs or /improve-codebase-architecture, or asks the team to build, distribute or orchestrate tickets, or to distribute a finished delivery's knowledge to the projects. Distributes one ticket per senior-developer in isolated worktrees, has QA (and UX, DBA, security by condition) review every branch, loops a failed review back at most the configured times, then escalates to the human, and merges what passes."
+metadata:
+  version: "0.4.1"
 ---
 
 # Team implement: the Tech Lead hat

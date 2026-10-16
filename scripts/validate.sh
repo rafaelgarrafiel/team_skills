@@ -20,7 +20,12 @@ assert isinstance(x['skills'],str), "codex manifest: skills must be a single pat
 import os
 for s in c['skills']:
     assert os.path.isfile(os.path.join(s,'SKILL.md')), f"missing {s}/SKILL.md"
-print("  versions in sync; every listed skill exists")
+import re
+for s in c['skills']:
+    m=re.search(r'^metadata:\n  version: "([^"]+)"$', open(os.path.join(s,'SKILL.md')).read().split('\n---\n',1)[0], re.M)
+    assert m and m.group(1)==p['version'], f"{s}/SKILL.md: metadata.version {m and m.group(1)} differs from {p['version']}: run scripts/set-version.sh"
+assert re.search(r'^Version '+re.escape(p['version'])+r'\.', open('README.md').read(), re.M), "README.md: top line does not state Version "+p['version']
+print("  versions in sync (manifests, package.json, every SKILL.md, README); every listed skill exists")
 PY
 
 echo "skills"

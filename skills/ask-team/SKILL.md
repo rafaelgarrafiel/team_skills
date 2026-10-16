@@ -2,6 +2,8 @@
 name: ask-team
 description: Ask which team hat, advisor or flow fits your situation. A router over this plugin and how it sits on mattpocock/skills.
 disable-model-invocation: true
+metadata:
+  version: "0.4.1"
 ---
 
 # Ask Team
@@ -30,6 +32,10 @@ Without Matt's skills, run the hats directly: `/team-grill` for the interview (e
 ## Where things land
 
 Every advisor and reviewer writes a file under `.scratch/<feature-slug>/team/` (contract: `team-contribution`). Read them where the decision is made: a maintained objection is quoted in the spec, the ticket or the review verdict, never only in a summary.
+
+## Which version is installed
+
+Read `metadata.version` in the frontmatter of this file: it is the version of the skills you are running now. `docs/agents/team.md` records, on its `Team-skills version` line, the version that last set the repo up. When the two differ, say so: the skills were updated after the setup, and re-running `/setup-team` records what the new version added (it asks only the missing sections). A `team.md` with no such line was written by a version before 0.4.1. Do not look in the installer's lockfile: `skills-lock.json` and `.skill-lock.json` hold the source and a hash of each skill, never a semantic version.
 
 ## Precondition
 

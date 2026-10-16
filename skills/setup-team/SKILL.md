@@ -2,6 +2,8 @@
 name: setup-team
 description: "Configure this repo for the team: detect whether mattpocock/skills is installed, reuse its issue tracker and domain docs settings, and choose the profile, the active advisors, the artifact language and the loop limits. Run once per repo before the first team grill or build."
 disable-model-invocation: true
+metadata:
+  version: "0.4.1"
 ---
 
 # Setup Team
@@ -44,7 +46,7 @@ Summarise mode, harness, and what Matt's setup already settled. Then one section
 
 Show the draft of `docs/agents/team.md` (seed: [team.md](./team.md)) and of the `## Team` block (seed: [team-block.md](./team-block.md)) filled in. Let the user edit. Then write:
 
-- `docs/agents/team.md` (with its `## Projects` section when section H ran)
+- `docs/agents/team.md` (with its `## Projects` section when section H ran), including the `Team-skills version` line: the `metadata.version` in the frontmatter of this very file, which is the one place the installed version can be read from when the plugin came through `npx skills` (its lockfile records origin and hash, not a version)
 - the `## Team` block, into **the file this harness reads**: Codex reads only `AGENTS.md`, so on Codex the block goes there, whatever else exists; Claude Code reads `CLAUDE.md`, so on Claude it goes into `CLAUDE.md` when it exists, else `AGENTS.md`. When the other file also exists and neither carries nor imports the block (a `CLAUDE.md` that is just `@AGENTS.md` imports it), write the block there too, so a repo used from both harnesses has it in both. When neither file exists, create `AGENTS.md`. Update an existing block in place; leave the surrounding sections, including Matt's `## Agent skills`, untouched.
 
 ## 4. Codex only: hand the agent install to the human

@@ -10,7 +10,7 @@ You invoke this by typing `/setup-team`, once per repo, and the agent won't reac
 
 | File | Who reads it |
 |---|---|
-| `docs/agents/team.md` | the hats, for settings |
+| `docs/agents/team.md` | the hats, for settings; also records the version that wrote it |
 | `## Team` block in `CLAUDE.md` / `AGENTS.md` | the main session, every turn: it is the bridge from Matt's skills to the hats |
 | `.codex/agents/*.toml` (Codex only) | Codex, to discover the subagents. You copy them with the command the skill gives you: the Codex manifest cannot ship them and the Codex sandbox cannot write under `.codex/` |
 

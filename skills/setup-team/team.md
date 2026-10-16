@@ -2,6 +2,7 @@
 
 Settings the team hats (`team-grill`, `team-implement`) read. Edit freely; re-run `/setup-team` to regenerate.
 
+- **Team-skills version**: <x.y.z> (the `metadata.version` of the `setup-team` that wrote this file)
 - **Mode**: `with-matt` | `standalone`
 - **Harness**: `claude` | `codex`
 - **Profile**: `express` | `feature`

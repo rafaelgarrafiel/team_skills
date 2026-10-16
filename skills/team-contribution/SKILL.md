@@ -9,7 +9,7 @@ You were dispatched by a hat (the Product Owner in `team-grill`, the Tech Lead i
 
 ## Reading scope
 
-The brief carries the **shared facts** (stack, test command, CI, the directories in play): trust them, never rediscover them. Read **this repository only**, starting from the paths the brief names, and stop as soon as you can answer; twenty files is the ceiling. Beyond the repository (sibling projects, the home directory) is off limits unless the brief says the human asked for it. Run tests quietly (`-q` or the runner's equivalent) and keep only the summary line.
+The brief carries the **shared facts** (stack, test command, CI, the directories in play): trust them, never rediscover them. Read **this repository only**, starting from the paths the brief names, and stop as soon as you can answer; twenty files is the ceiling. Beyond the repository (sibling projects, the home directory) is off limits unless the brief says the human asked for it. Run tests quietly (`-q` or the runner's equivalent) and keep only the summary line. The one exception is the `knowledge-keeper`, whose brief names a single project path to read and write; it writes no contribution file (read `delivery-record.md` beside this file instead).
 
 ## Size
 
@@ -68,4 +68,14 @@ Builder (`senior-developer`), whose file is the branch itself:
 - Tests: <command>, <passed>/<total>
 - Review: <verdict of code-review, "embedded review", or "reviewers' findings applied" on a re-dispatch>
 - Open: <anything the ticket asked for that is not done, or "none">
+```
+
+Knowledge keeper, whose output is committed to the project, not to `.scratch/`:
+
+```markdown
+## Summary: knowledge-keeper, <project>
+- Branch: <name>, <n> commits, <existing branch | new branch>
+- Written: <delivery record path>, <n> ADRs (<paths>), <n> glossary terms
+- Moved: <cockpit ADR paths now replaceable by a pointer, or "none">
+- Open: <conflicts left for the human, or "none">
 ```

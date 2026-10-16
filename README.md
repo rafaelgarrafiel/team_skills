@@ -87,14 +87,14 @@ Four failure modes, and what the team does about each. The evidence under each o
 
 ## How it works
 
-Two **hats** and seven **subagents**. A hat is a skill the main session loads, because the interview needs you in the loop and the build needs to dispatch; a subagent runs alone and returns.
+Two **hats** and eight **subagents**. A hat is a skill the main session loads, because the interview needs you in the loop and the build needs to dispatch; a subagent runs alone and returns.
 
 | You run | Hat | Dispatched |
 |---|---|---|
 | `/grill-with-docs`, `/grill-me` | Product Owner | security and QA advisors before round one; privacy when people or personal data are in play, UX when a screen is, DBA when data is, SRE when it will run in production. Later passes offered with their cost |
 | `/to-spec` | Product Owner | every active advisor reviews the draft spec, when you accept the offer |
 | `/to-tickets` | Tech Lead | a senior developer checks implementability and missing blocking edges |
-| `/implement` | Tech Lead | one builder per ticket in parallel worktrees; team reviewers when you ask |
+| `/implement` | Tech Lead | one builder per ticket in parallel worktrees; team reviewers when you ask; in a cockpit, a knowledge keeper per project touched, when you say yes |
 | `/triage` | Product Owner | security on suspected vulnerabilities, QA to reproduce |
 | `/diagnosing-bugs` | Tech Lead | QA locks the failing command, a builder fixes it with a regression test |
 | `/improve-codebase-architecture` | Tech Lead | a senior developer and the DBA survey candidates |
@@ -109,13 +109,13 @@ Skills split on who can invoke them. **User-invoked** are reachable only when yo
 
 **User-invoked**
 
-- **[setup-team](./skills/setup-team/SKILL.md)**: configure the team for this repo: mode, profile, active advisors, artifact language, limits. Run once. ([docs](./docs/setup-team.md))
+- **[setup-team](./skills/setup-team/SKILL.md)**: configure the team for this repo: mode, profile, active advisors, artifact language, limits, and the projects a cockpit serves. Run once. ([docs](./docs/setup-team.md))
 - **[ask-team](./skills/ask-team/SKILL.md)**: which hat or flow fits your situation, and what works without Matt's skills. ([docs](./docs/ask-team.md))
 
 **Model-invoked**
 
 - **[team-grill](./skills/team-grill/SKILL.md)**: the Product Owner hat. Runs the interview, dispatches the advisors blind before round one and offers later passes with their cost, merges their facts into the design tree and their questions into the round, and reaches for `codebase-design` when the tree turns structural. ([docs](./docs/team-grill.md))
-- **[team-implement](./skills/team-implement/SKILL.md)**: the Tech Lead hat. Reads the tracker, builds the ready set from the blocking edges, dispatches builders in isolated worktrees, merges each green branch on the builder's own evidence and names what a team review would cost, runs the review when you ask and escalates at the loop limit. Keeps `state.md` so a dead session resumes without loss, and offers a fresh session after the second merge. ([docs](./docs/team-implement.md))
+- **[team-implement](./skills/team-implement/SKILL.md)**: the Tech Lead hat. Reads the tracker, builds the ready set from the blocking edges, dispatches builders in isolated worktrees, merges each green branch on the builder's own evidence and names what a team review would cost, runs the review when you ask and escalates at the loop limit. Keeps `state.md` so a dead session resumes without loss, and offers a fresh session after the second merge. When the repo is a cockpit for several projects, offers to distribute the delivery's knowledge to each. ([docs](./docs/team-implement.md))
 - **[team-contribution](./skills/team-contribution/SKILL.md)**: the contract every specialist follows (reading scope, size, the file, positions, the return summary), kept short because it rides on every dispatch; `BRIEFING.md` beside it is the hats' side (how to brief, the completion check `check.sh`, triage, the state file). ([docs](./docs/team-contribution.md))
 
 **Agents**
@@ -129,6 +129,7 @@ Skills split on who can invoke them. **User-invoked** are reachable only when yo
 | [`dba`](./agents/dba.md) | when persistence is touched: schema, migration and rollback, query plans, capacity |
 | [`sre`](./agents/sre.md) | when it will run in production: observability, deploy and rollback, incidents, anything scheduled |
 | [`senior-developer`](./agents/senior-developer.md) | one ticket per dispatch, built test-first in its own worktree |
+| [`knowledge-keeper`](./agents/knowledge-keeper.md) | only in a cockpit, only on your yes: writes a project-sized record of the delivery, its ADRs and glossary terms into one project's repository and commits them to a branch |
 
 A repo can add its own advisor: drop a persona that follows [the contract](./skills/team-contribution/SKILL.md) into your harness's agents folder and list it in `/setup-team`.
 

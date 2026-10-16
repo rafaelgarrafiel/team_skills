@@ -11,3 +11,7 @@ ADR 0006 cut the *number* of dispatches. The cost of *each* one has two parts, a
 ## Why not less
 
 Dropping advisors to one round was ADR 0006. Dropping the roster to two roles would remove the coverage the first project showed to be real. Dropping the file in favour of a chat return would lose the on-disk dissent that ADR 0004 exists for. What remains after this ADR is the cost of the advice itself, which is the product.
+
+## Update, 2026-10-15
+
+The `knowledge-keeper` (ADR 0008) is the one exception to "this repository only": its brief names a single project path it reads and writes, plus the cockpit artifacts of the delivery.

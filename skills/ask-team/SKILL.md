@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Ask Team
 
-The team is two **hats** the main session wears and six **subagents** it dispatches. You keep invoking the skills you already know; the hat runs inside them.
+The team is two **hats** the main session wears and eight **subagents** it dispatches. You keep invoking the skills you already know; the hat runs inside them.
 
 ## With Matt's skills installed
 
@@ -16,6 +16,7 @@ The team is two **hats** the main session wears and six **subagents** it dispatc
 | `/to-spec` | Product Owner | every active advisor reviews the draft spec; maintained objections land in `## Team positions` |
 | `/to-tickets` | Tech Lead (`team-implement`) | senior developer checks implementability and missing blocking edges |
 | `/implement` | Tech Lead | one senior developer per ticket in parallel worktrees; QA reviews every branch, UX, DBA, security, LGPD by what the diff touches; two failed rounds escalate to you |
+| `/implement`, in a cockpit | Tech Lead | after the merge, offers one knowledge keeper per project touched, to write the delivery's record, ADRs and glossary terms into it; only on your yes |
 | `/triage` | Product Owner | security on suspected vulnerabilities, QA to reproduce |
 | `/diagnosing-bugs` | Tech Lead | QA locks the red command, senior developer fixes with a regression test |
 | `/improve-codebase-architecture` | Tech Lead | senior developer and DBA survey candidates |

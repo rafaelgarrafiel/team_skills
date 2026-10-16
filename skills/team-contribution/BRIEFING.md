@@ -13,6 +13,7 @@ A repo configured by an earlier `setup-team` may lack lines that later versions 
 | `Model for builders` | `inherit` |
 | `sre` absent from `Active advisors` | active (it joins by condition anyway) |
 | `Review loop limit`, `Parallel builders`, `Advisor rounds per artifact` | 2, 3, 2 |
+| `## Projects` section | absent: the repo is a single project and `team-implement` step 7 does not run |
 
 Never rewrite `team.md` yourself: `setup-team` owns it, and the user may have left a line out on purpose after reading this table.
 
@@ -46,6 +47,19 @@ Every dispatch carries a **model**, from `docs/agents/team.md`: advisors and rev
 Write each round's brief to `<team-dir>/round-<N>-brief.md` (a grill round, or a builder's re-dispatch after a review) and point the supports at it, so the text a round was answered against stays on disk and a resumed session can re-dispatch against it.
 
 Round 1 is **blind**: no brief carries a sibling's contribution. Who sees what is the invariant; whether the harness runs supports in parallel or in sequence is not.
+
+## The knowledge-transfer brief
+
+A `knowledge-keeper` dispatch (`team-implement` step 7) is the one dispatch whose reading scope is not "this repository only": the brief names **one project path** and the paths of the cockpit artifacts for the delivery. It carries no shared repo facts, because the keeper learns the project's documentation conventions itself. Beyond the generic items it has:
+
+- the project's name, path and role, from `## Projects`
+- the branch to commit on, and the base to create it from when it does not exist yet
+- the delivery slug and the paths of the spec, that project's tickets, the review verdicts and the contribution files
+- every ADR of the delivery with its classification (`project-only` or `cross-project`) and its cockpit path
+- the glossary terms assigned to this project
+- the line "Call the Skill tool with `team-contribution`, read `delivery-record.md` in its folder and follow it."
+
+Its output is a commit in the project, not a file under `.scratch/`, so `check.sh` does not apply: the hat verifies with `git -C <path> log` and `git status --short`. It is never dispatched without the human's yes, under any dispatch setting.
 
 ## Output paths
 

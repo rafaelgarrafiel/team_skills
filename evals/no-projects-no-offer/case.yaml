@@ -1,0 +1,73 @@
+schema_version: '1.0'
+name: no-projects-no-offer
+description: 'In a repo with no Projects section, a finished delivery does not mention a knowledge transfer: the step does not exist there.'
+tags:
+- implement
+- cockpit
+- negative
+execution:
+  runs: 3
+  max_turns: 10
+  allowed_tools:
+  - Skill
+  - Read
+  prompt: |
+    Este e o `AGENTS.md` do meu repositorio:
+
+    ---
+    # painel
+
+    ## Agent skills
+
+    ### Issue tracker
+
+    Issues sao arquivos markdown locais em `.scratch/<feature>/`.
+
+    ## Team
+
+    Team mode is on: mode `standalone`, profile `express`, artifacts in Portugues (pt-BR). Settings in `docs/agents/team.md`.
+
+    The main session wears a hat and delegates to the roster; it never does the roster's work itself.
+
+    - When the user runs `/grill-with-docs`, `/grill-me`, `/to-spec` or `/triage`: call the Skill tool with `team-grill` before the first round, and follow it.
+    - When the user runs `/implement`, `/to-tickets`, `/diagnosing-bugs` or `/improve-codebase-architecture`: call the Skill tool with `team-implement` before doing anything else, and follow it.
+    ---
+
+    E este e o `docs/agents/team.md`:
+
+    ---
+    # Team
+
+    - **Mode**: `standalone`
+
+    - **Harness**: `claude`
+
+    - **Profile**: `express`
+
+    - **Active advisors**: lgpd-analyst, security-analyst, qa-expert, ux-expert, dba, sre
+
+    - **Artifact language**: Portugues (pt-BR)
+
+    - **Dispatch after the first grill round**: automatic
+
+    - **Model for advisors and reviewers**: sonnet
+
+    - **Model for builders**: inherit
+
+    - **Review loop limit**: 2
+
+    - **Parallel builders**: 3
+
+    - **Advisor rounds per artifact**: 2
+    ---
+
+    Estado final em `.scratch/relatorios/team/state.md`:
+
+    ---
+    | Ticket | State | Branch | Loops | Reviewers returned | Note |
+    |---|---|---|---|---|---|
+    | 01-endpoint | merged | team/relatorios/01-endpoint | 0 | | |
+    | 02-tela | merged | team/relatorios/02-tela | 1 | qa | |
+    ---
+
+    Os dois tickets foram integrados e a suite completa passou (212/212). O ticket 01 mexeu em `../plataforma-api/relatorios/` e o ticket 02 em `../plataforma-web/src/relatorios/`. Existe um ADR da entrega, `docs/adr/0009-cache-de-relatorios.md`, que so afeta o backend. Nao ha ninguem mais olhando esta sessao agora. Tudo o que voce precisa esta colado acima; nao ha mais nada no disco e nao precisa procurar. A entrega acabou, o que voce faz a seguir?

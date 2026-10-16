@@ -20,6 +20,14 @@ Settings the team hats (`team-grill`, `team-implement`) read. Edit freely; re-ru
 - Data layer present: yes | no (`<path>`)
 - Deploy or CI config present: yes | no (`<path>`)
 
+## Projects
+
+Optional. Only in a cockpit: a repository that holds the team's grill, specs and tickets for a platform whose code lives in other repositories. After a delivery, `team-implement` offers to write a summary of it into each project touched. Delete this section if the repo is a single project.
+
+| Project | Path (relative to this repo) | Role | Domain docs |
+|---|---|---|---|
+| <name> | <../path> | <frontend, backend, supporting service> | <GLOSSARY.md at root, GLOSSARY-MAP.md, none yet> |
+
 ## Where the team writes
 
 Contribution files under `.scratch/<feature-slug>/team/`, per the `team-contribution` skill. On GitHub or GitLab, maintained objections are also quoted into the issue.

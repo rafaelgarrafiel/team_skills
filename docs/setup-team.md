@@ -14,6 +14,10 @@ You invoke this by typing `/setup-team`, once per repo, and the agent won't reac
 | `## Team` block in `CLAUDE.md` / `AGENTS.md` | the main session, every turn: it is the bridge from Matt's skills to the hats |
 | `.codex/agents/*.toml` (Codex only) | Codex, to discover the subagents. You copy them with the command the skill gives you: the Codex manifest cannot ship them and the Codex sandbox cannot write under `.codex/` |
 
+## A cockpit
+
+If this repo holds the team's work for a platform made of several repositories, `/setup-team` also asks for them: name, path relative to this repo, and role. It checks each path and reads the project's domain-docs layout itself. The result is a `## Projects` section in `docs/agents/team.md`; with it, [team-implement](./team-implement.md) offers a knowledge transfer after each delivery. Without it, nothing changes.
+
 ## Common questions
 
 **I already ran `/setup-matt-pocock-skills`. Will this ask the same things again?**

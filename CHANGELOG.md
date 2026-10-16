@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.0
+
+- **Knowledge transfer for a cockpit** (ADR 0008). A repo that holds the team's grill, specs and tickets for a platform whose code lives in other repositories can list them in a `## Projects` section of `docs/agents/team.md` (asked by `setup-team`). After the final suite, `team-implement` offers, with its cost, to write the delivery into each project touched, and dispatches only on the human's yes, whatever the dispatch setting. New persona `knowledge-keeper`: one per project, parallel and blind, writes a delivery record (`docs/deliveries/<slug>.md`), the project's ADRs and glossary terms into that one project, fits its numbering, language and format, and commits to the branch the human names without merging or pushing. A project-only ADR is moved and leaves a pointer in the cockpit; a cross-project ADR stays canonical there. `state.md` gains a `## Knowledge` section so a rerun updates instead of duplicating.
+
 ## 0.3.2
 
 - A `docs/agents/team.md` written by an older `setup-team` takes the current defaults for the lines it lacks (dispatch on request, advisors on `sonnet`, builders `inherit`, `sre` active), and the hat says so in one line with the fix. Older behaviour is never the fallback. `setup-team` re-run on an old file asks only the missing sections.

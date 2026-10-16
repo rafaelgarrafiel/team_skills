@@ -17,6 +17,7 @@ Read what exists; assume nothing:
 - `docs/agents/team.md` and a `## Team` block: a previous run of this skill, to update in place. When the file predates a setting this version asks for, keep every line the user already has, ask only the missing sections, and name what was added at the end.
 - Which harness is this: Claude Code (a `.claude/` folder, or this skill loaded from a Claude plugin) or Codex (`.codex/`, `.agents/skills/`, or this skill loaded from `~/.codex`). It decides which file carries the block (step 3) and whether step 4 runs.
 - `CLAUDE.md` and `AGENTS.md` at the root, and whether `CLAUDE.md` imports the other (`@AGENTS.md`).
+- Whether this repo is a **cockpit**: it holds the team's grill, specs and tickets for a platform whose code lives in other repositories. Not detectable from files alone; ask in section H only when the user mentions several repositories or a `## Projects` section already exists.
 - Signals for the conditional advisors: a frontend (templates, components, a `src/pages` or `app/` tree) and a data layer (migrations, models, an ORM). Not asked; recorded as hints.
 
 ## 2. Present and ask
@@ -37,11 +38,13 @@ Summarise mode, harness, and what Matt's setup already settled. Then one section
 
 **G. Limits.** Review loop before escalation: 2. Builders in parallel: 3. Advisor rounds per artifact: 2. Accept or change.
 
+**H. Projects (cockpit only).** Skip unless this repo coordinates other repositories. Ask for each one its name, its path relative to this repo, and its role in a line (frontend, backend, supporting service). Verify each path yourself with `git -C <path> rev-parse --show-toplevel`, and read its domain-docs layout (a root `GLOSSARY.md`, a `GLOSSARY-MAP.md`, where its `docs/adr/` is) instead of asking; a project with none is recorded as "no domain docs yet". Recommend nothing beyond what the user listed. Say what the section buys: after a delivery the Tech Lead offers to write a summary of it into each project touched (`team-implement` step 7), and does so only on the human's yes. Without the section there is no such step.
+
 ## 3. Confirm and write
 
 Show the draft of `docs/agents/team.md` (seed: [team.md](./team.md)) and of the `## Team` block (seed: [team-block.md](./team-block.md)) filled in. Let the user edit. Then write:
 
-- `docs/agents/team.md`
+- `docs/agents/team.md` (with its `## Projects` section when section H ran)
 - the `## Team` block, into **the file this harness reads**: Codex reads only `AGENTS.md`, so on Codex the block goes there, whatever else exists; Claude Code reads `CLAUDE.md`, so on Claude it goes into `CLAUDE.md` when it exists, else `AGENTS.md`. When the other file also exists and neither carries nor imports the block (a `CLAUDE.md` that is just `@AGENTS.md` imports it), write the block there too, so a repo used from both harnesses has it in both. When neither file exists, create `AGENTS.md`. Update an existing block in place; leave the surrounding sections, including Matt's `## Agent skills`, untouched.
 
 ## 4. Codex only: hand the agent install to the human

@@ -35,6 +35,20 @@ it lands: `- <date> <ticket> <question, short>: <ruling>`. The ruling also goes
 into the ticket; this list is what a resumed session reads to know what was
 already decided, so it never asks twice.
 
+## Knowledge
+
+Only when the human said yes to the knowledge transfer (step 7 of `team-implement`).
+One row per project the delivery touched:
+
+| Project | State | Branch | Delivery record | ADRs | Note |
+|---|---|---|---|---|---|
+| backend | written | feature/<name> | docs/deliveries/<slug>.md | 0003, 0004 | pointers left in the cockpit |
+| frontend | dispatched | feature/<name> | | | |
+
+States: `offered`, `declined`, `dispatched`, `written`, `escalated`. A project in
+`written` is never dispatched again unless the human asks; a second run updates
+its record instead of duplicating it.
+
 ## Log
 
 Append one line per event, newest last. `HH:MM verb ticket detail`.

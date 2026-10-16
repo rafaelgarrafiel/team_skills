@@ -24,6 +24,12 @@ Every ticket goes through the same four moves. A **builder** gets the ticket, it
 
 Two mechanisms keep a long build honest. The hat writes `.scratch/<feature>/team/state.md` at four moments (builder dispatched, builder returned, review round done, merged or escalated), so a session that dies mid-build resumes from what was in flight instead of re-deriving it: which builder is out, how many review loops a ticket has already spent, which reviewers came back. And before reading any review, it runs the contribution check, which fails when a dispatched reviewer left no file or left a malformed one. A dispatch that produced no file produced no advice, and the return summary alone cannot tell you that.
 
+## Knowledge transfer, in a cockpit
+
+When `docs/agents/team.md` has a `## Projects` section (the repo holds the grill, specs and tickets for a platform whose code lives in other repositories), the Tech Lead ends the build by asking: "Distribute the knowledge to backend (on `feature/x`) and frontend (on `feature/y`)? 2 dispatches." Nothing runs without your yes, under any dispatch setting, because it writes into repositories the team does not own.
+
+On a yes, one `knowledge-keeper` per project, in parallel, writes into that project only: a **delivery record** (`docs/deliveries/<slug>.md`: why, the part of the spec that concerns it, its tickets, the reviews and objections that concern it), the ADRs, and the glossary terms of its context. An ADR whose decision lives in one project is moved there and the cockpit keeps a one-line pointer; one that crosses projects stays canonical in the cockpit and each project gets a short ADR pointing back. The keeper fits the project's own ADR numbering, language and format, commits on the branch you name (the project's current one by default, so one MR carries code and reasons together), and never merges or pushes. A second run updates the record instead of duplicating it.
+
 ## Short sessions by design
 
 A merge is a clean boundary: `state.md` describes everything in flight. The session's context carries every ticket it has built and each turn costs more for it, so after the second merge the hat says so and offers the cheap path: clear, `/implement` again, resume from the file. A re-dispatched builder skips `code-review` (the reviewers' findings are the review for that round), and every test run is quiet, summary line only.
@@ -44,6 +50,7 @@ Yes, when two tickets touch one seam. The blocking edges from `/to-tickets` are 
 - The main session's own diff is empty: every code change arrived on a `team/<feature>/<NN-slug>` branch.
 - Each merge announcement names what a team review would cost, and a ticket you asked to review has one file per reviewer beside it.
 - An escalation shows you verbatim findings and three options, never a fourth attempt.
+- In a cockpit, the offer comes once, after the final suite, and a project you declined has no commit.
 - `state.md` matches reality: what it calls `building` has a branch, what it calls `merged` is in your history.
 
 ## Where it fits

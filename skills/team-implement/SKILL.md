@@ -1,6 +1,6 @@
 ---
 name: team-implement
-description: "The Tech Lead hat. Use when team mode is on (a Team block in CLAUDE.md or AGENTS.md) and the user runs /implement, /to-tickets, /diagnosing-bugs or /improve-codebase-architecture, or asks the team to build, distribute or orchestrate tickets. Distributes one ticket per senior-developer in isolated worktrees, has QA (and UX, DBA, security by condition) review every branch, loops a failed review back at most the configured times, then escalates to the human, and merges what passes."
+description: "The Tech Lead hat. Use when team mode is on (a Team block in CLAUDE.md or AGENTS.md) and the user runs /implement, /to-tickets, /diagnosing-bugs or /improve-codebase-architecture, or asks the team to build, distribute or orchestrate tickets, or to distribute a finished delivery's knowledge to the projects. Distributes one ticket per senior-developer in isolated worktrees, has QA (and UX, DBA, security by condition) review every branch, loops a failed review back at most the configured times, then escalates to the human, and merges what passes."
 ---
 
 # Team implement: the Tech Lead hat
@@ -9,7 +9,7 @@ You are the Tech Lead. You distribute, review, merge and escalate; you never wri
 
 ## 1. Load the team settings
 
-Call the Skill tool with `team-contribution` and read `BRIEFING.md` in its folder: it is your side of the contract (how to brief, the output paths, the check, the triage). Then read the `## Team` block in `CLAUDE.md` or `AGENTS.md` and `docs/agents/team.md`: mode (with or without Matt's skills), active advisors, the dispatch policy (on request, or automatic), artifact language, the review loop limit, the parallel builder limit. A `team.md` from an older setup may lack some of these lines: take the current defaults from `BRIEFING.md` and say so in one line; never fall back to older behaviour. When there is no block, tell the user to run `/setup-team` and stop. Read `docs/agents/issue-tracker.md` when it exists: it says how to fetch, comment on and close a ticket.
+Call the Skill tool with `team-contribution` and read `BRIEFING.md` in its folder: it is your side of the contract (how to brief, the output paths, the check, the triage). Then read the `## Team` block in `CLAUDE.md` or `AGENTS.md` and `docs/agents/team.md`: mode (with or without Matt's skills), active advisors, the dispatch policy (on request, or automatic), artifact language, the review loop limit, the parallel builder limit. A `team.md` from an older setup may lack some of these lines: take the current defaults from `BRIEFING.md` and say so in one line; never fall back to older behaviour. When there is no block, tell the user to run `/setup-team` and stop. Note whether `team.md` has a `## Projects` section: it decides whether step 7 applies. Read `docs/agents/issue-tracker.md` when it exists: it says how to fetch, comment on and close a ticket.
 
 ## 2. Pick up where the last session left off
 
@@ -72,7 +72,19 @@ A branch is ready to merge when the builder summary is clean (suite green, `Open
 
 A merge is a clean boundary: `state.md` is complete, nothing is in flight that the file does not describe. This session's context carries every ticket it has built, and the cost of each turn grows with it, so **the build is meant to run in short sessions**. After a merge, when this session has already merged two or more tickets, say so in one line: "State is complete. A fresh session (clear, then `/implement` again) resumes from `state.md` at a fraction of this one's cost." Then continue only if the human does not take the offer. Return to step 4 until no ticket is open, or every open ticket is blocked by an escalated one.
 
-Once at the end, run the full suite on the integrated branch, quietly (`-q` or the runner's equivalent), and record its summary line; the full output never enters the report. Then report: tickets merged, escalated, still blocked; which were team-reviewed and which are one `review NN` away; every contribution file path; the suite result.
+Once at the end, run the full suite on the integrated branch, quietly (`-q` or the runner's equivalent), and record its summary line; the full output never enters the report. Then report: tickets merged, escalated, still blocked; which were team-reviewed and which are one `review NN` away; every contribution file path; the suite result. When `team.md` has a `## Projects` section, finish with step 7.
+
+## 7. Offer the knowledge transfer
+
+Applies only when `team.md` has a `## Projects` section (the team runs from a cockpit and the platform's code lives in other repositories); without it, skip. Also runs when the human later asks to distribute a finished delivery's knowledge. Everything the delivery decided sits in this repository; a maintainer who opens only one project sees none of it. This step writes a project-sized summary into each project the delivery touched.
+
+1. **Name the affected projects** from the delivery's tickets, ADRs and glossary terms against each project's path and role in `## Projects`. When one is unclear, say so and ask. For each affected project, read its current branch (`git -C <path> branch --show-current`) and whether its working tree is dirty. Classify every ADR of the delivery as `project-only` (the decision lives in one project) or `cross-project`, and assign each glossary term to the project whose context it belongs to.
+2. **Offer, never dispatch unasked**, whatever the dispatch setting: the step writes into repositories the team does not own. One line with the cost: "Delivery done. Distribute the knowledge to backend (on `feature/x`) and frontend (on `feature/y`)? 2 dispatches on `sonnet`, one commit per project, no merge, no push. `yes`, `skip`, or name other branches." Wait for the answer. On `skip`, write `declined` in the `## Knowledge` table of `state.md` and stop.
+3. **Dispatch** on a yes: record each project as `dispatched` in `state.md`, then dispatch one `knowledge-keeper` per project, in parallel and blind, on the model set for advisors and reviewers. Each brief carries, per `BRIEFING.md`: the project path, role and branch, the base for a new branch, the paths of the delivery's cockpit artifacts (spec, the tickets of that project, the review verdicts and contribution files under `.scratch/<feature-slug>/team/`, the ADRs with their classification, the glossary terms assigned), the artifact language, and the delivery slug.
+4. **Check each return** against the repository, not the summary: `git -C <path> log -1 --stat <branch>` lists the delivery record, and `git -C <path> status --short` shows none of the files it wrote. A project that fails goes back once, then to the human. An `Open` line goes to the human.
+5. **Leave pointers.** For every ADR a summary lists under `Moved`, replace the cockpit file with a one-line pointer to the project's ADR (same number, so the numbering holds). Then record each project `written` in `state.md` with its branch, record and ADRs.
+
+Done when every project the human said yes to is `written` with a commit you verified, or `escalated`, and the cockpit holds a pointer for each moved ADR. Report per project: branch, commit, files written, anything `Open`.
 
 ## When the user ran `/to-tickets`
 

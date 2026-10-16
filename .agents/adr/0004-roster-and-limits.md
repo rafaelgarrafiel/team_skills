@@ -31,3 +31,7 @@ The first pilot showed runtime facts arriving from whoever tripped over them: th
 An `architect` persona was considered and rejected: the vocabulary for module shape, boundaries and seams already has a single source of truth in `codebase-design`, and `domain-modeling` already runs inside the grill. The gap was that nobody reached for it, so the Product Owner hat now loads `codebase-design` when the tree turns structural. System decomposition is the hat's own work, never a dispatch: it is the one question a support cannot own without owning the whole design.
 
 The reviewer tier (AI-DLC's `architecture-reviewer` and `product-lead`) stays out for now. Its idea, an outside reviewer with a bounded iteration cap, is already how `qa-expert` reviews a branch; a second pair of eyes on the spec before `to-tickets` would be a change to `team-grill` rather than a new persona, and waits for a pilot that shows the need.
+
+## Update, 2026-10-15: `knowledge-keeper` added
+
+A ninth role for cockpit repos: it writes the delivery's record, ADRs and glossary terms into the projects the delivery touched, on the human's yes. It is neither advisor nor builder, and it is the one role that writes outside the repository the team runs in. See ADR 0008.

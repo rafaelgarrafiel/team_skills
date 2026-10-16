@@ -17,7 +17,7 @@ Each case is a folder with a `case.yaml` (the prompt carries the repo context in
 | `knowledge-offer` | in a cockpit, a finished delivery ends without the offer to distribute the knowledge, or dispatches the keepers without waiting for the human's yes (even under `automatic`) |
 | `no-projects-no-offer` | the negative case: a repo with no `## Projects` section gets a knowledge-transfer offer it has no projects for |
 
-Last full run (0.3.2): every case at or above 0.92, three runs each, eight cases (the two knowledge cases of 0.4.0 not yet run); the request-mode cases pair a regex with the LLM judge so one judge miss cannot fail a run. Scores are per run; the wrapper fails the suite when any run scores below 0.67 (`--threshold`). A full run of the eight cases at three runs each costs about US$ 2 to 3 and takes 10 to 15 minutes. A behaviour that passes two runs in three is variance worth reading, not a failure to ignore: open the HTML report under `evals/results/` and read the losing run.
+Last full run (0.3.2): every case at or above 0.92, three runs each, eight cases; the two knowledge cases of 0.4.0 scored 1.0 on three runs each; the request-mode cases pair a regex with the LLM judge so one judge miss cannot fail a run. Scores are per run; the wrapper fails the suite when any run scores below 0.67 (`--threshold`). A full run of the eight cases at three runs each costs about US$ 2 to 3 and takes 10 to 15 minutes. A behaviour that passes two runs in three is variance worth reading, not a failure to ignore: open the HTML report under `evals/results/` and read the losing run.
 
 ## Writing a case
 

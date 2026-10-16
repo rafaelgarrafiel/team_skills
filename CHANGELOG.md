@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.2
+
+- **A leaner Tech Lead.** `team-implement/SKILL.md` drops from about 4,200 to 2,900 tokens, which every turn of the hat re-reads. The review procedure (`review.md`), the knowledge-transfer mechanics (`knowledge-transfer.md`) and the `/to-tickets`, `/diagnosing-bugs`, `/improve-codebase-architecture` flows (`flows.md`) moved behind pointers and load only when that flow happens. The rules that decide whether to load them stay inline: propose the review with its cost, never dispatch unasked, offer the knowledge transfer and wait for a yes.
+- A `team.md` from an older setup: the hat now says, in its first reply, which default it assumed (`team.md has no dispatch policy; assuming on request`), and an optional `## Projects` section is no longer mistaken for a missing line. The review proposal names the policy ("Dispatch is on request").
+- Repo housekeeping: this repository's own `CLAUDE.md` moved to `.claude/CLAUDE.md`, because `claude plugin validate --strict` (2.1.301) warns that a `CLAUDE.md` at a plugin root is not loaded as project context.
+
 ## 0.4.1
 
 - **The installed version is readable.** The lockfile of `npx skills` records the source and a hash of each skill, never a semantic version, so on Codex nobody could tell which version they ran. Every `SKILL.md` now carries `metadata.version` in its frontmatter; `/ask-team` reports it; `setup-team` records it on a `Team-skills version` line of `docs/agents/team.md` so a repo set up before an update shows the difference; the generated Codex agents carry it in their header.

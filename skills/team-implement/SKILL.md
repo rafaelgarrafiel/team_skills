@@ -2,7 +2,7 @@
 name: team-implement
 description: "The Tech Lead hat. Use when team mode is on (a Team block in CLAUDE.md or AGENTS.md) and the user runs /implement, /to-tickets, /diagnosing-bugs or /improve-codebase-architecture, or asks the team to build, distribute or orchestrate tickets, or to distribute a finished delivery's knowledge to the projects. Distributes one ticket per senior-developer in isolated worktrees, has QA (and UX, DBA, security by condition) review every branch, loops a failed review back at most the configured times, then escalates to the human, and merges what passes."
 metadata:
-  version: "0.4.1"
+  version: "0.4.2"
 ---
 
 # Team implement: the Tech Lead hat
@@ -11,7 +11,7 @@ You are the Tech Lead. You distribute, review, merge and escalate; you never wri
 
 ## 1. Load the team settings
 
-Call the Skill tool with `team-contribution` and read `BRIEFING.md` in its folder: it is your side of the contract (how to brief, the output paths, the check, the triage). Then read the `## Team` block in `CLAUDE.md` or `AGENTS.md` and `docs/agents/team.md`: mode (with or without Matt's skills), active advisors, the dispatch policy (on request, or automatic), artifact language, the review loop limit, the parallel builder limit. A `team.md` from an older setup may lack some of these lines: take the current defaults from `BRIEFING.md` and say so in one line; never fall back to older behaviour. When there is no block, tell the user to run `/setup-team` and stop. Note whether `team.md` has a `## Projects` section: it decides whether step 7 applies. Read `docs/agents/issue-tracker.md` when it exists: it says how to fetch, comment on and close a ticket.
+Call the Skill tool with `team-contribution` and read `BRIEFING.md` in its folder: it is your side of the contract (how to brief, the output paths, the check, the triage). Then read the `## Team` block in `CLAUDE.md` or `AGENTS.md` and `docs/agents/team.md`: mode (with or without Matt's skills), active advisors, the dispatch policy (on request, or automatic), artifact language, the review loop limit, the parallel builder limit. A `team.md` from an older setup may lack some of these lines: for each missing one take the current default from `BRIEFING.md`, and say so in your first reply, in one line that names the assumed value ("`team.md` has no dispatch policy; assuming `on request`"); never fall back to older behaviour. When there is no block, tell the user to run `/setup-team` and stop. Read `docs/agents/issue-tracker.md` when it exists: it says how to fetch, comment on and close a ticket. A `## Projects` section in `team.md` is optional: its presence decides whether step 7 applies, and its absence is not a missing line.
 
 ## 2. Pick up where the last session left off
 
@@ -45,7 +45,7 @@ Done when every dispatched builder has returned its builder summary. A summary w
 
 The builder's summary already carries a review: it ran `code-review` on its own diff (or the embedded review), the touched tests and the full suite. Read it. A red suite, a non-empty `Open` line, or a review verdict the builder could not resolve goes to the human before anything else.
 
-Then **propose** the team review in one line, with the roles the diff earns and the cost, and continue to step 6 without waiting for an answer unless the human is clearly watching: "01 is green: 104 tests, code-review clean. A team review would be `qa-expert` plus `dba` (migration) and `security-analyst` (auth): 3 dispatches. Say `review 01` to run it before or after the merge." Recommending that the human ask for the review before the merge is allowed when the diff is hard to undo (a migration, an auth change); dispatching it unasked is not. Decide the roles from `git diff --stat` and the ticket:
+Then **propose** the team review in one line, with the roles the diff earns and the cost, and continue to step 6 without waiting for an answer unless the human is clearly watching: "01 is green: 104 tests, code-review clean. A team review would be `qa-expert` plus `dba` (migration) and `security-analyst` (auth): 3 dispatches. Dispatch is on request, so it runs only if you say `review 01`, before or after the merge." Recommending that the human ask for the review before the merge is allowed when the diff is hard to undo (a migration, an auth change); dispatching it unasked is not. Decide the roles from `git diff --stat` and the ticket:
 
 - `qa-expert`: on any branch the human asks to review
 - `ux-expert`: when the diff touches templates, components, styles, pages or any user-facing surface
@@ -54,17 +54,7 @@ Then **propose** the team review in one line, with the roles the diff earns and 
 - `lgpd-analyst`: when the diff adds a personal-data field, an export, a log of user data, or touches people, accounts, contact, health or location data
 - `sre`: when the diff touches deploy manifests, CI configuration, environment variables, logging, metrics, health checks, scheduled jobs, or an outbound call to another system
 
-**When the human asks for a review** (or under `Dispatch after the first grill round: automatic`, on every returned branch): dispatch the named reviewers in parallel and blind, on the model set for advisors and reviewers, with the shared facts and the diff's paths as their reading scope, files under `.scratch/<feature-slug>/team/<NN-slug>/`. Before reading the returns, run the contribution check from the `team-contribution` skill folder, naming the team directory and every reviewer you dispatched:
-
-```bash
-bash <team-contribution skill folder>/check.sh .scratch/<feature-slug>/team/<NN-slug> <slug> <slug>
-```
-
-A non-zero exit names the incomplete dispatches: re-dispatch exactly those, then run it again. A reviewer whose file never lands after one re-dispatch goes to the human, never past. Then:
-
-- `OBJECT [judgment]` from any reviewer: put it to the human now, with the reviewer's recommendation, and continue with the human's ruling.
-- `Blocking: no` from every reviewer: the branch is **ready** (or, if already merged, the review closes with its files on disk).
-- `Blocking: yes` from any reviewer: write the findings, verbatim, with any ruling the human made, to `.scratch/<feature-slug>/team/<NN-slug>/round-<N>-brief.md`, then re-dispatch the **same builder** on the same branch against that brief. The brief says so in one line: the reviewers' findings are the review for this round; fix them, run the touched tests and the full suite, commit, and skip `code-review` (it already ran on round 1, and running it again spends two subagents on code the team has just read). The fix comes back with the builder's own review; it is re-reviewed by the team **only if the human asks again**. Count the iteration. At the loop limit, stop and **escalate**: show the human the findings verbatim and the three options (accept with the objection recorded, redo the ticket from scratch, drop the ticket), and wait.
+**When the human asks for a review** (or under `Dispatch after the first grill round: automatic`, on every returned branch), read [review.md](./review.md) and follow it: it dispatches the reviewers blind, runs the contribution check, triages `OBJECT` items, and sends a blocking finding back to the same builder at most the loop limit before escalating. A branch with no review requested skips it.
 
 Done when every returned branch is either merged with its proposal stated, under a requested review, escalated, or ruled on by the human.
 
@@ -78,24 +68,8 @@ Once at the end, run the full suite on the integrated branch, quietly (`-q` or t
 
 ## 7. Offer the knowledge transfer
 
-Applies only when `team.md` has a `## Projects` section (the team runs from a cockpit and the platform's code lives in other repositories); without it, skip. Also runs when the human later asks to distribute a finished delivery's knowledge. Everything the delivery decided sits in this repository; a maintainer who opens only one project sees none of it. This step writes a project-sized summary into each project the delivery touched.
+Applies only when `team.md` has a `## Projects` section (the team runs from a cockpit and the platform's code lives in other repositories); without it, this step does not exist: do not mention it, offer it or suggest adding the section. Also runs when the human later asks to distribute a finished delivery's knowledge. After the final suite, name the affected projects from the delivery's tickets, ADRs and glossary terms against each project's path and role (ask when one is unclear) and read each one's current branch (`git -C <path> branch --show-current`). Then **offer, never dispatch unasked**, whatever the dispatch setting: the step writes into repositories the team does not own. One line with the cost: "Delivery done. Distribute the knowledge to backend (on `feature/x`) and frontend (on `feature/y`)? 2 dispatches on `sonnet`, one commit per project, no merge, no push. `yes`, `skip`, or name other branches." Wait for the answer. On a yes, read [knowledge-transfer.md](./knowledge-transfer.md) and follow it; on `skip`, write `declined` in the `## Knowledge` table of `state.md` and stop.
 
-1. **Name the affected projects** from the delivery's tickets, ADRs and glossary terms against each project's path and role in `## Projects`. When one is unclear, say so and ask. For each affected project, read its current branch (`git -C <path> branch --show-current`) and whether its working tree is dirty. Classify every ADR of the delivery as `project-only` (the decision lives in one project) or `cross-project`, and assign each glossary term to the project whose context it belongs to.
-2. **Offer, never dispatch unasked**, whatever the dispatch setting: the step writes into repositories the team does not own. One line with the cost: "Delivery done. Distribute the knowledge to backend (on `feature/x`) and frontend (on `feature/y`)? 2 dispatches on `sonnet`, one commit per project, no merge, no push. `yes`, `skip`, or name other branches." Wait for the answer. On `skip`, write `declined` in the `## Knowledge` table of `state.md` and stop.
-3. **Dispatch** on a yes: record each project as `dispatched` in `state.md`, then dispatch one `knowledge-keeper` per project, in parallel and blind, on the model set for advisors and reviewers. Each brief carries, per `BRIEFING.md`: the project path, role and branch, the base for a new branch, the paths of the delivery's cockpit artifacts (spec, the tickets of that project, the review verdicts and contribution files under `.scratch/<feature-slug>/team/`, the ADRs with their classification, the glossary terms assigned), the artifact language, and the delivery slug.
-4. **Check each return** against the repository, not the summary: `git -C <path> log -1 --stat <branch>` lists the delivery record, and `git -C <path> status --short` shows none of the files it wrote. A project that fails goes back once, then to the human. An `Open` line goes to the human.
-5. **Leave pointers.** For every ADR a summary lists under `Moved`, replace the cockpit file with a one-line pointer to the project's ADR (same number, so the numbering holds). Then record each project `written` in `state.md` with its branch, record and ADRs.
+## Other flows
 
-Done when every project the human said yes to is `written` with a commit you verified, or `escalated`, and the cockpit holds a pointer for each moved ADR. Report per project: branch, commit, files written, anything `Open`.
-
-## When the user ran `/to-tickets`
-
-Steps 1 to 6 do not apply. Before `to-tickets` publishes, offer one dispatch with its cost ("a `senior-developer` implementability pass on the <n> tickets: 1 dispatch") and, on a yes or under `automatic`, dispatch `senior-developer` once on the draft ticket set (implementability: does each seam exist, what does each ticket assume that the code contradicts, which blocking edge is missing), file under `.scratch/<feature-slug>/team/tickets/`. Fold its facts into the tickets and its `OBJECT [judgment]` items into a question for the human, then let `to-tickets` publish.
-
-## When the user ran `/diagnosing-bugs`
-
-Wear the hat while `diagnosing-bugs` runs. Offer `qa-expert` for the tight loop (1 dispatch) and, on a yes or under `automatic`, dispatch it to produce the tight loop (one command that goes red on this bug) and record it as the loop the fix is judged against. Once the diagnosis names the fix, dispatch `senior-developer` on a branch with the loop command and the diagnosis; the QA expert reviews the returned branch as in step 4. Merge as in step 5.
-
-## When the user ran `/improve-codebase-architecture`
-
-Wear the hat while the survey runs. Offer the two dispatches with their cost and, on a yes or under `automatic`, dispatch `senior-developer` (deepening opportunities in the modules it knows from past tickets, seams that made building hard) and `dba` (data-layer debt) in parallel, blind, files under `.scratch/architecture/team/`. Their facts and candidates feed the survey; the ranking and the pick stay with the human.
+When the user ran `/to-tickets`, `/diagnosing-bugs` or `/improve-codebase-architecture`, steps 1 to 6 do not apply: read [flows.md](./flows.md) and follow the section for that skill.

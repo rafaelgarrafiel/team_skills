@@ -1,0 +1,10 @@
+# Knowledge transfer: the Tech Lead's side
+
+Read this after the human said yes to the offer in step 7 of `SKILL.md` (which names the affected projects and their current branches, and holds the rule: offer with the cost, never dispatch unasked). Everything the delivery decided sits in the cockpit; a maintainer who opens only one project sees none of it. This writes a project-sized summary into each project the delivery touched.
+
+1. **Classify.** Mark every ADR of the delivery `project-only` (the decision lives in one project) or `cross-project`, and assign each glossary term to the project whose context it belongs to. For a project whose working tree is dirty (`git -C <path> status --short`), say so in the brief: the keeper stages only its own files.
+2. **Dispatch.** Record each project as `dispatched` in `state.md`, then dispatch one `knowledge-keeper` per project, in parallel and blind, on the model set for advisors and reviewers. Each brief carries, per `BRIEFING.md`: the project path, role and branch, the base for a new branch, the paths of the delivery's cockpit artifacts (spec, the tickets of that project, the review verdicts and contribution files under `.scratch/<feature-slug>/team/`, the ADRs with their classification, the glossary terms assigned), the artifact language, and the delivery slug.
+3. **Check each return** against the repository, not the summary: `git -C <path> log -1 --stat <branch>` lists the delivery record, and `git -C <path> status --short` shows none of the files it wrote. A project that fails goes back once, then to the human. An `Open` line goes to the human.
+4. **Leave pointers.** For every ADR a summary lists under `Moved`, replace the cockpit file with a one-line pointer to the project's ADR (same number, so the numbering holds). Then record each project `written` in `state.md` with its branch, record and ADRs.
+
+Done when every project the human said yes to is `written` with a commit you verified, or `escalated`, and the cockpit holds a pointer for each moved ADR. Report per project: branch, commit, files written, anything `Open`.

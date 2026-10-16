@@ -3,7 +3,7 @@ name: setup-team
 description: "Configure this repo for the team: detect whether mattpocock/skills is installed, reuse its issue tracker and domain docs settings, and choose the profile, the active advisors, the artifact language and the loop limits. Run once per repo before the first team grill or build."
 disable-model-invocation: true
 metadata:
-  version: "0.4.1"
+  version: "0.4.2"
 ---
 
 # Setup Team

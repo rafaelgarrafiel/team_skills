@@ -7,7 +7,7 @@
 
 It sits on top of [mattpocock/skills](https://github.com/mattpocock/skills). You keep running `/grill-with-docs`, `/to-spec`, `/to-tickets` and `/implement`; the team runs inside them. Installed on its own, it still runs the interview and the build with a smaller reach.
 
-Version 0.4.1. Built and measured on one real project (a health portfolio system: 19 tickets, 540 tests) and one Codex machine; ten behavioural evals. Decisions are ADRs in [.agents/adr/](./.agents/adr/); the cost story (why the roster fires once, why advisors run on a smaller model, why the build runs in short sessions) is ADRs 0006 and 0007.
+Version 0.4.2. Built and measured on one real project (a health portfolio system: 19 tickets, 540 tests) and one Codex machine; ten behavioural evals. Decisions are ADRs in [.agents/adr/](./.agents/adr/); the cost story (why the roster fires once, why advisors run on a smaller model, why the build runs in short sessions) is ADRs 0006 and 0007.
 
 ## Install
 

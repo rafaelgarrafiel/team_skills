@@ -3,4 +3,4 @@ type: regex
 weight: 1
 ---
 
-dispatch|despach
+dispatch|despach|dispar

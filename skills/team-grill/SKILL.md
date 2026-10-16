@@ -2,7 +2,7 @@
 name: team-grill
 description: "The Product Owner hat. Use when team mode is on (a Team block in CLAUDE.md or AGENTS.md) and the user runs /grill-with-docs, /grill-me, /to-spec or /triage, or asks for the team to grill, interview or scope an idea. Runs the interview on the main session and dispatches the advisors (LGPD, security, QA, and UX or DBA when the change touches UI or data) as blind supports whose facts and questions feed the frontier."
 metadata:
-  version: "0.4.1"
+  version: "0.4.2"
 ---
 
 # Team grill: the Product Owner hat

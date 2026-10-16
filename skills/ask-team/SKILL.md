@@ -3,7 +3,7 @@ name: ask-team
 description: Ask which team hat, advisor or flow fits your situation. A router over this plugin and how it sits on mattpocock/skills.
 disable-model-invocation: true
 metadata:
-  version: "0.4.1"
+  version: "0.4.2"
 ---
 
 # Ask Team

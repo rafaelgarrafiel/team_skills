@@ -16,7 +16,7 @@ prev=""
 for a in "$@"; do [ "$prev" = "--json" ] && json_out="$a"; prev="$a"; done
 extra=(); [ "$json_out" = /tmp/team-skills-eval.json ] && extra=(--json "$json_out")
 
-claude plugin eval . --runs 3 --trust-plugin --no-publish --ablation none --threshold 0.67 "${extra[@]}" "$@"
+claude plugin eval . --runs 3 --trust-plugin --no-publish --ablation none --threshold 0.67 ${extra[@]+"${extra[@]}"} "$@"
 status=$?
 
 # A run refused by the environment (session limit, logged out) scores zero with

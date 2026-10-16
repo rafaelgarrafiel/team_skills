@@ -1,8 +1,8 @@
 # Implementation plan
 
-## Status, 2026-09-18
+## Status, 2026-10-15 (0.4.0)
 
-Everything buildable without a real repo is built and passes `scripts/validate.sh`: manifests, build and validate scripts, the overlay hook, five skills, six personas, the Codex TOMLs, docs pages, README. What remains is exactly the pilots, which need a human in a real repo:
+Everything buildable without a real repo is built and passes `scripts/validate.sh`: manifests, build and validate scripts, the overlay hook, five skills, eight personas, the Codex TOMLs, docs pages, README. What remains is exactly the pilots, which need a human in a real repo:
 
 | Phase | Built | Pending |
 |---|---|---|
@@ -10,6 +10,7 @@ Everything buildable without a real repo is built and passes `scripts/validate.s
 | 1 grill | `setup-team`, `team-contribution`, `team-grill`, `ask-team`, five advisor personas, docs | the pilot below |
 | 2 build | `team-implement`, `senior-developer`, the Claude hook | the pilot below, and the ADR 0003 risk observed |
 | 3 Codex | Codex manifest, TOML generation, `setup-team` Codex branch, `openai.yaml` on every skill; first real run found and fixed the block file, the TOML shipping path and the `.codex/` write refusal | `$team-grill` overlay through `AGENTS.md`, parallel builders |
+| 5 cockpit (0.4.0) | `knowledge-keeper`, `## Projects` in `team.md` and `setup-team`, step 7 of `team-implement`, `## Knowledge` in `state.md`, delivery-record template, ADR 0008, two evals (1.0 on three runs each) | a real cockpit run: the ops repo with its five projects, writes landing on real branches |
 | 4 v1.0 | README, docs pages, CHANGELOG, versions in sync | skills.sh listing, official marketplace, a second real repo |
 
 Simplification adopted during the build: personas are already in Claude's format, so only the Codex TOML is generated (`dist/codex/agents/`), and `.claude-plugin/plugin.json` lists the persona files explicitly, which `claude plugin validate --strict` requires. The contribution contract moved from `.agents/` into the `team-contribution` skill, its single source of truth.
@@ -65,6 +66,22 @@ Done when: the Phase 1 and Phase 2 pilots pass on Codex, or the gaps are written
 - Docs page per skill in `docs/` in the shape of Matt's `writing-docs.md` sections (What it does, When to reach for it, Common questions, It's working if).
 - `CHANGELOG.md`, version bump in both manifests and `package.json`.
 - Listing on skills.sh; submission to Claude's official marketplace after v1.0 has run in a second real repo.
+
+## Phase 5: knowledge transfer for a cockpit (v0.4.0)
+
+Motivated by the first multi-repository use: the team runs in one repository (the cockpit) that holds the grill, specs and tickets of a platform whose code lives in five others, so every ADR and every reason stayed where nobody maintaining a single project would look. Decisions are in ADR 0008; vocabulary in `GLOSSARY.md` (Cockpit, Project, Knowledge transfer, Delivery record).
+
+Built:
+
+- `agents/knowledge-keeper.md`: one per project touched, parallel and blind, writes a delivery record, ADRs and glossary terms into that one project and commits to the branch the human names. The one role that writes outside the repository the team runs in.
+- `## Projects` in `docs/agents/team.md`, asked by `setup-team` (section H); absent means no transfer step.
+- Step 7 of `team-implement`: the Tech Lead offers with its cost after the final suite, dispatches only on the human's yes whatever the dispatch setting, verifies each project's commit, leaves a pointer in the cockpit for every moved ADR.
+- `## Knowledge` in `state.md`; `delivery-record.md` and the keeper's return summary in `team-contribution`; the keeper brief in `BRIEFING.md`.
+- Evals `knowledge-offer` and `no-projects-no-offer`.
+
+Pending pilot: run it in the real cockpit. Done when: the offer comes once, after the final suite, and nothing is written before the yes; each project receives a commit on the branch the human named (the project's current one by default) and the working tree of a project with unfinished work keeps it untouched; a project-only ADR is moved and leaves a pointer, a cross-project one is summarised in each project; a second run updates the record and duplicates nothing.
+
+Not in scope, recorded so it is not lost: building across repositories (worktrees and builders are still single-repo; the 0.4.0 step is documentation only), and a project that disagrees with the cockpit's glossary beyond the `Open` line the keeper returns.
 
 ## Open items, to settle during Phase 1
 
